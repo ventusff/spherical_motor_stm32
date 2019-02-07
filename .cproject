@@ -17,10 +17,10 @@
 				<configuration artifactExtension="elf" artifactName="${ProjName}" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.exe" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.exe,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug" cleanCommand="rm -rf" description="" id="fr.ac6.managedbuild.config.gnu.cross.exe.debug.629242087" name="Debug" parent="fr.ac6.managedbuild.config.gnu.cross.exe.debug" postannouncebuildStep="Generating binary and Printing size information:" postbuildStep="arm-none-eabi-objcopy -O binary &quot;${BuildArtifactFileBaseName}.elf&quot; &quot;${BuildArtifactFileBaseName}.bin&quot;; arm-none-eabi-size &quot;${BuildArtifactFileName}&quot;">
 					<folderInfo id="fr.ac6.managedbuild.config.gnu.cross.exe.debug.629242087." name="/" resourcePath="">
 						<toolChain id="fr.ac6.managedbuild.toolchain.gnu.cross.exe.debug.1085376088" name="Ac6 STM32 MCU GCC" superClass="fr.ac6.managedbuild.toolchain.gnu.cross.exe.debug">
-							<option id="fr.ac6.managedbuild.option.gnu.cross.mcu.450365047" name="Mcu" superClass="fr.ac6.managedbuild.option.gnu.cross.mcu" value="STM32F407ZGTx" valueType="string"/>
-							<option id="fr.ac6.managedbuild.option.gnu.cross.fpu.1649451860" name="Floating point hardware" superClass="fr.ac6.managedbuild.option.gnu.cross.fpu" value="fr.ac6.managedbuild.option.gnu.cross.fpu.fpv4-sp-d16" valueType="enumerated"/>
-							<option id="fr.ac6.managedbuild.option.gnu.cross.floatabi.1522116658" name="Floating-point ABI" superClass="fr.ac6.managedbuild.option.gnu.cross.floatabi" value="fr.ac6.managedbuild.option.gnu.cross.floatabi.hard" valueType="enumerated"/>
-							<option id="fr.ac6.managedbuild.option.gnu.cross.board.1411328749" name="Board" superClass="fr.ac6.managedbuild.option.gnu.cross.board" value="f407zgt6" valueType="string"/>
+							<option id="fr.ac6.managedbuild.option.gnu.cross.mcu.450365047" name="Mcu" superClass="fr.ac6.managedbuild.option.gnu.cross.mcu" useByScannerDiscovery="false" value="STM32F407ZGTx" valueType="string"/>
+							<option id="fr.ac6.managedbuild.option.gnu.cross.fpu.1649451860" name="Floating point hardware" superClass="fr.ac6.managedbuild.option.gnu.cross.fpu" useByScannerDiscovery="false" value="fr.ac6.managedbuild.option.gnu.cross.fpu.fpv4-sp-d16" valueType="enumerated"/>
+							<option id="fr.ac6.managedbuild.option.gnu.cross.floatabi.1522116658" name="Floating-point ABI" superClass="fr.ac6.managedbuild.option.gnu.cross.floatabi" useByScannerDiscovery="false" value="fr.ac6.managedbuild.option.gnu.cross.floatabi.hard" valueType="enumerated"/>
+							<option id="fr.ac6.managedbuild.option.gnu.cross.board.1411328749" name="Board" superClass="fr.ac6.managedbuild.option.gnu.cross.board" useByScannerDiscovery="false" value="f407zgt6" valueType="string"/>
 							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="fr.ac6.managedbuild.targetPlatform.gnu.cross.973007049" isAbstract="false" osList="all" superClass="fr.ac6.managedbuild.targetPlatform.gnu.cross"/>
 							<builder buildPath="${workspace_loc:/rtt_3.1.x_f407_example}/Debug" id="fr.ac6.managedbuild.builder.gnu.cross.1573883741" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="Gnu Make Builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="fr.ac6.managedbuild.builder.gnu.cross"/>
 							<tool id="fr.ac6.managedbuild.tool.gnu.cross.c.compiler.685598047" name="MCU GCC Compiler" superClass="fr.ac6.managedbuild.tool.gnu.cross.c.compiler">
@@ -31,10 +31,15 @@
 									<listOptionValue builtIn="false" value="STM32F4"/>
 									<listOptionValue builtIn="false" value="STM32F407ZGTx"/>
 									<listOptionValue builtIn="false" value="DEBUG"/>
-									<listOptionValue builtIn="false" value="STM32F40XX"/>
 									<listOptionValue builtIn="false" value="STM32F40_41xxx"/>
 									<listOptionValue builtIn="false" value="USE_STDPERIPH_DRIVER"/>
 									<listOptionValue builtIn="false" value="STM32F407ZGTx_DEVEL"/>
+									<listOptionValue builtIn="false" value="__VFP_FP__"/>
+									<listOptionValue builtIn="false" value="ARM_MATH_CM4"/>
+									<listOptionValue builtIn="false" value="__bss_end=__bss_end__"/>
+									<listOptionValue builtIn="false" value="__bss_start=__bss_start__"/>
+									<listOptionValue builtIn="false" value="SW4STM32"/>
+									<listOptionValue builtIn="false" value="HSE_VALUE=8000000"/>
 								</option>
 								<option id="gnu.c.compiler.option.include.paths.72609949" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/StdPeriph_Driver/inc&quot;"/>
@@ -42,7 +47,15 @@
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/CMSIS/core&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/app/inc&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/bsp/inc&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/rt-thread-3.1.x/components/drivers/include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/rt-thread-3.1.x/components/dfs/include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/rt-thread-3.1.x/components/finsh&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/rt-thread-3.1.x/components/utilities/logtrace&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/rt-thread-3.1.x/components/drivers/include/drivers&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/rt-thread-3.1.x/include&quot;"/>
 								</option>
+								<option id="fr.ac6.managedbuid.gnu.c.compiler.option.misc.other.1236191141" name="Other flags" superClass="fr.ac6.managedbuid.gnu.c.compiler.option.misc.other" useByScannerDiscovery="false" value="-fmessage-length=0 -Wa,-mimplicit-it=thumb" valueType="string"/>
+								<option id="gnu.c.compiler.option.dialect.std.30277558" name="Language standard" superClass="gnu.c.compiler.option.dialect.std" useByScannerDiscovery="true" value="gnu.c.compiler.dialect.default" valueType="enumerated"/>
 								<inputType id="fr.ac6.managedbuild.tool.gnu.cross.c.compiler.input.c.2139394428" superClass="fr.ac6.managedbuild.tool.gnu.cross.c.compiler.input.c"/>
 								<inputType id="fr.ac6.managedbuild.tool.gnu.cross.c.compiler.input.s.1038961743" superClass="fr.ac6.managedbuild.tool.gnu.cross.c.compiler.input.s"/>
 							</tool>
@@ -51,6 +64,7 @@
 								<option id="gnu.cpp.compiler.option.debugging.level.420184584" name="Debug Level" superClass="gnu.cpp.compiler.option.debugging.level" useByScannerDiscovery="false" value="gnu.cpp.compiler.debugging.level.max" valueType="enumerated"/>
 							</tool>
 							<tool id="fr.ac6.managedbuild.tool.gnu.cross.c.linker.1308521758" name="MCU GCC Linker" superClass="fr.ac6.managedbuild.tool.gnu.cross.c.linker">
+								<option id="gnu.c.link.option.ldflags.1582499138" name="Linker flags" superClass="gnu.c.link.option.ldflags" useByScannerDiscovery="false" value="-specs=nano.specs -specs=nosys.specs " valueType="string"/>
 								<inputType id="cdt.managedbuild.tool.gnu.c.linker.input.734455493" superClass="cdt.managedbuild.tool.gnu.c.linker.input">
 									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
 									<additionalInput kind="additionalinput" paths="$(LIBS)"/>
@@ -59,13 +73,20 @@
 							<tool id="fr.ac6.managedbuild.tool.gnu.cross.cpp.linker.1521559769" name="MCU G++ Linker" superClass="fr.ac6.managedbuild.tool.gnu.cross.cpp.linker"/>
 							<tool id="fr.ac6.managedbuild.tool.gnu.archiver.2075884543" name="MCU GCC Archiver" superClass="fr.ac6.managedbuild.tool.gnu.archiver"/>
 							<tool id="fr.ac6.managedbuild.tool.gnu.cross.assembler.226934632" name="MCU GCC Assembler" superClass="fr.ac6.managedbuild.tool.gnu.cross.assembler">
-								<option id="gnu.both.asm.option.include.paths.664952374" name="Include paths (-I)" superClass="gnu.both.asm.option.include.paths" valueType="includePath">
+								<option id="gnu.both.asm.option.include.paths.664952374" name="Include paths (-I)" superClass="gnu.both.asm.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/StdPeriph_Driver/inc&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/CMSIS/device&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/CMSIS/core&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/app/inc&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/bsp/inc&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/rt-thread-3.1.x/components/drivers/include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/rt-thread-3.1.x/components/dfs/include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/rt-thread-3.1.x/components/finsh&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/rt-thread-3.1.x/components/utilities/logtrace&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/rt-thread-3.1.x/components/drivers/include/drivers&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/rt-thread-3.1.x/include&quot;"/>
 								</option>
+								<option id="gnu.both.asm.option.flags.579436223" name="Assembler flags" superClass="gnu.both.asm.option.flags" useByScannerDiscovery="false" value="-mimplicit-it=thumb" valueType="string"/>
 								<inputType id="cdt.managedbuild.tool.gnu.assembler.input.2023141210" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
 								<inputType id="fr.ac6.managedbuild.tool.gnu.cross.assembler.input.2138933410" superClass="fr.ac6.managedbuild.tool.gnu.cross.assembler.input"/>
 							</tool>
@@ -75,6 +96,8 @@
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="StdPeriph_Driver"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="app"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="bsp"/>
+						<entry excluding="components/cplusplus|components/dfs|components/drivers/audio|components/drivers/misc/rt_drv_pwm.c|components/drivers/sdio|components/drivers/sensors|components/drivers/usb|components/drivers/watchdog|components/drivers/i2c|components/drivers/mtd|components/drivers/wlan|components/drivers/pm|components/drivers/spi|components/drivers/misc/adc.c|components/libc|libcpu|components/utilities/zmodem|components/utilities/ymodem|components/utilities/utest|components/utilities/ulog|components/vmm|components/vbus|components/net|components/CMSIS" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="rt-thread-3.1.x"/>
+						<entry excluding="context_rvds.S|context_iar.S" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="rt-thread-3.1.x/libcpu/arm/cortex-m4"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="startup"/>
 					</sourceEntries>
 				</configuration>
@@ -114,14 +137,27 @@
 									<listOptionValue builtIn="false" value="STM32F40_41xxx"/>
 									<listOptionValue builtIn="false" value="USE_STDPERIPH_DRIVER"/>
 									<listOptionValue builtIn="false" value="STM32F407IGTx_DEVEL"/>
+									<listOptionValue builtIn="false" value="__VFP_FP__"/>
+									<listOptionValue builtIn="false" value="ARM_MATH_CM4"/>
+									<listOptionValue builtIn="false" value="__bss_end=__bss_end__"/>
+									<listOptionValue builtIn="false" value="__bss_start=__bss_start__"/>
+									<listOptionValue builtIn="false" value="SW4STM32"/>
+									<listOptionValue builtIn="false" value="HSE_VALUE=8000000"/>
 								</option>
 								<option id="gnu.c.compiler.option.include.paths.2045669278" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/StdPeriph_Driver/inc&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/inc&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/CMSIS/device&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/CMSIS/core&quot;"/>
-									<listOptionValue builtIn="false" value="../$(ProjDirPath}/app/inc"/>
+									<listOptionValue builtIn="false" value="&quot;$(ProjDirPath}/app/inc"/>
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/bsp/inc&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/rt-thread-3.1.x/components/drivers/include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/rt-thread-3.1.x/components/dfs/include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/rt-thread-3.1.x/components/finsh&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/rt-thread-3.1.x/components/utilities/logtrace&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/rt-thread-3.1.x/components/drivers/include/drivers&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/rt-thread-3.1.x/include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/rt-thread-3.1.x/include/libc/&quot;"/>
 								</option>
 								<inputType id="fr.ac6.managedbuild.tool.gnu.cross.c.compiler.input.c.2064881659" superClass="fr.ac6.managedbuild.tool.gnu.cross.c.compiler.input.c"/>
 								<inputType id="fr.ac6.managedbuild.tool.gnu.cross.c.compiler.input.s.2138953734" superClass="fr.ac6.managedbuild.tool.gnu.cross.c.compiler.input.s"/>
@@ -144,8 +180,15 @@
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/inc&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/CMSIS/device&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/CMSIS/core&quot;"/>
-									<listOptionValue builtIn="false" value="../$(ProjDirPath}/app/inc"/>
+									<listOptionValue builtIn="false" value="&quot;$(ProjDirPath}/app/inc"/>
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/bsp/inc&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/rt-thread-3.1.x/components/drivers/include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/rt-thread-3.1.x/components/dfs/include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/rt-thread-3.1.x/components/finsh&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/rt-thread-3.1.x/components/utilities/logtrace&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/rt-thread-3.1.x/components/drivers/include/drivers&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/rt-thread-3.1.x/include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/rt-thread-3.1.x/include/libc/&quot;"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.assembler.input.267005898" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
 								<inputType id="fr.ac6.managedbuild.tool.gnu.cross.assembler.input.594373585" superClass="fr.ac6.managedbuild.tool.gnu.cross.assembler.input"/>
@@ -158,6 +201,8 @@
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="app/inc"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="app/src"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="bsp"/>
+						<entry excluding="components/cplusplus|components/dfs|components/drivers/audio|components/drivers/misc/rt_drv_pwm.c|components/drivers/sdio|components/drivers/sensors|components/drivers/usb|components/drivers/watchdog|components/drivers/i2c|components/drivers/mtd|components/drivers/wlan|components/drivers/pm|components/drivers/spi|components/drivers/misc/adc.c|components/libc|libcpu|components/utilities/zmodem|components/utilities/ymodem|components/utilities/utest|components/utilities/ulog|components/vmm|components/vbus|components/net|components/CMSIS" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="rt-thread-3.1.x"/>
+						<entry excluding="context_rvds.S|context_iar.S" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="rt-thread-3.1.x/libcpu/arm/cortex-m4"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="startup"/>
 					</sourceEntries>
 				</configuration>
@@ -179,4 +224,5 @@
 	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
 	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
+	<storageModule moduleId="refreshScope"/>
 </cproject>

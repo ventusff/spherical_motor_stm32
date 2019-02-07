@@ -371,7 +371,6 @@
 //changed by guojianfei 20190207
 	#if defined(STM32F407ZGTx_DEVEL)
 		#define PLL_M	8
-		#define HSE_VALUE 8000000
 	#else
 		#define PLL_M	25
 	#endif
