@@ -44,7 +44,7 @@ int main(void)
 	#endif
 
 	while(1){
-		;;;
+		rt_thread_delay(DELAY_S(1));
 	}
 
     return 0;
