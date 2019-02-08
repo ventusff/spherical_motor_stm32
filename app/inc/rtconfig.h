@@ -96,10 +96,10 @@
 #define RT_USING_SERIAL
 #define RT_SERIAL_USING_DMA
 #define RT_USING_PIN
-
 #define RT_USING_CPUTIME
 #define RT_USING_RTC
 #define RT_USING_CAN
+#define USING_BXCAN1
 #define RT_USING_HWTIMER
 #define RT_USING_ADC
 

@@ -1,6 +1,7 @@
 {
     "workbench.editor.enablePreview": false,
     "files.associations": {
-        "finsh.h": "c"
+        "finsh.h": "c",
+        "board.h": "c"
     }
 }
