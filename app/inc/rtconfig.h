@@ -52,9 +52,6 @@
 #define RT_MAIN_THREAD_STACK_SIZE 2048
 #define RT_MAIN_THREAD_PRIORITY 10
 
-#define RT_USING_LOGTRACE
-#define RT_USING_LOGTRACE_LEVEL_ //added by ventus
-
 /* C++ features */
 
 
@@ -138,6 +135,19 @@
 
 /* Utilities */
 
+// log trace
+// #define RT_USING_LOGTRACE
+// #define RT_USING_LOGTRACE_LEVEL_ //added by ventus
+
+// ulong
+#define RT_USING_ULOG
+#define ULOG_LINE_BUF_SIZE 128
+// #define ULOG_USING_SYSLOG
+#define ULOG_BACKEND_USING_CONSOLE
+#define ULOG_USING_FILTER
+// #define ULOG_OUTPUT_LVL      LOG_LVL_ERROR
+#define ULOG_OUTPUT_LVL      LOG_LVL_DBG
+#define ULOG_OUTPUT_TIME
 
 /* ARM CMSIS */
 

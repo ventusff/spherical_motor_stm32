@@ -51,6 +51,7 @@
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/rt-thread-3.1.x/components/dfs/include&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/rt-thread-3.1.x/components/finsh&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/rt-thread-3.1.x/components/utilities/logtrace&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/rt-thread-3.1.x/components/utilities/ulog&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/rt-thread-3.1.x/components/drivers/include/drivers&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/rt-thread-3.1.x/include&quot;"/>
 								</option>
@@ -83,6 +84,7 @@
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/rt-thread-3.1.x/components/dfs/include&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/rt-thread-3.1.x/components/finsh&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/rt-thread-3.1.x/components/utilities/logtrace&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/rt-thread-3.1.x/components/utilities/ulog&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/rt-thread-3.1.x/components/drivers/include/drivers&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/rt-thread-3.1.x/include&quot;"/>
 								</option>
@@ -96,7 +98,7 @@
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="StdPeriph_Driver"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="app"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="bsp"/>
-						<entry excluding="components/cplusplus|components/dfs|components/drivers/audio|components/drivers/misc/rt_drv_pwm.c|components/drivers/sdio|components/drivers/sensors|components/drivers/usb|components/drivers/watchdog|components/drivers/i2c|components/drivers/mtd|components/drivers/wlan|components/drivers/pm|components/drivers/spi|components/drivers/misc/adc.c|components/libc|libcpu|components/utilities/zmodem|components/utilities/ymodem|components/utilities/utest|components/utilities/ulog|components/vmm|components/vbus|components/net|components/CMSIS" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="rt-thread-3.1.x"/>
+						<entry excluding="components/utilities/logtrace|components/cplusplus|components/dfs|components/drivers/audio|components/drivers/misc/rt_drv_pwm.c|components/drivers/sdio|components/drivers/sensors|components/drivers/usb|components/drivers/watchdog|components/drivers/i2c|components/drivers/mtd|components/drivers/wlan|components/drivers/pm|components/drivers/spi|components/drivers/misc/adc.c|components/libc|libcpu|components/utilities/zmodem|components/utilities/ymodem|components/utilities/utest|components/vmm|components/vbus|components/net|components/CMSIS" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="rt-thread-3.1.x"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="rt-thread-3.1.x/components/libc/time"/>
 						<entry excluding="context_rvds.S|context_iar.S" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="rt-thread-3.1.x/libcpu/arm/cortex-m4"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="startup"/>
@@ -156,6 +158,7 @@
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/rt-thread-3.1.x/components/dfs/include&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/rt-thread-3.1.x/components/finsh&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/rt-thread-3.1.x/components/utilities/logtrace&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/rt-thread-3.1.x/components/utilities/ulog&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/rt-thread-3.1.x/components/drivers/include/drivers&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/rt-thread-3.1.x/include&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/rt-thread-3.1.x/include/libc/&quot;"/>
@@ -187,6 +190,7 @@
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/rt-thread-3.1.x/components/dfs/include&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/rt-thread-3.1.x/components/finsh&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/rt-thread-3.1.x/components/utilities/logtrace&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/rt-thread-3.1.x/components/utilities/ulog&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/rt-thread-3.1.x/components/drivers/include/drivers&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/rt-thread-3.1.x/include&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/rt-thread-3.1.x/include/libc/&quot;"/>
@@ -202,7 +206,7 @@
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="app/inc"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="app/src"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="bsp"/>
-						<entry excluding="components/cplusplus|components/dfs|components/drivers/audio|components/drivers/misc/rt_drv_pwm.c|components/drivers/sdio|components/drivers/sensors|components/drivers/usb|components/drivers/watchdog|components/drivers/i2c|components/drivers/mtd|components/drivers/wlan|components/drivers/pm|components/drivers/spi|components/drivers/misc/adc.c|components/libc|libcpu|components/utilities/zmodem|components/utilities/ymodem|components/utilities/utest|components/utilities/ulog|components/vmm|components/vbus|components/net|components/CMSIS" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="rt-thread-3.1.x"/>
+						<entry excluding="components/utilities/logtrace|components/cplusplus|components/dfs|components/drivers/audio|components/drivers/misc/rt_drv_pwm.c|components/drivers/sdio|components/drivers/sensors|components/drivers/usb|components/drivers/watchdog|components/drivers/i2c|components/drivers/mtd|components/drivers/wlan|components/drivers/pm|components/drivers/spi|components/drivers/misc/adc.c|components/libc|libcpu|components/utilities/zmodem|components/utilities/ymodem|components/utilities/utest|components/vmm|components/vbus|components/net|components/CMSIS" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="rt-thread-3.1.x"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="rt-thread-3.1.x/components/libc/time"/>
 						<entry excluding="context_rvds.S|context_iar.S" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="rt-thread-3.1.x/libcpu/arm/cortex-m4"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="startup"/>

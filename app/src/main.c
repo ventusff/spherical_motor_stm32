@@ -26,15 +26,6 @@ void show_sysclock_config(void)
 	rt_kprintf("fHCLK = %d, fMAIN = %d, fPCLK1 = %d, fPCLK2 = %d. \n",rcc_clocks.HCLK_Frequency, rcc_clocks.SYSCLK_Frequency, rcc_clocks.PCLK1_Frequency, rcc_clocks.PCLK2_Frequency);
 }
 
-/* log trace test */
-#include <log_trace.h>
-#include <string.h>
-const static struct log_trace_session _main_session = 
-{
-	.id = {.name = "main"},
-	.lvl = LOG_TRACE_LEVEL_DEBUG,
-};
-
 int main(void)
 {
 	//wait system init.
@@ -42,14 +33,20 @@ int main(void)
 	show_sysclock_config();
     /* user app entry */
 
-	/* log trace test */
-	// log_trace_set_device("uart2");
-	log_trace_register_session(&_main_session);
-	while(1){
-		log_session(&_main_session, "testing...\n",LOG_TRACE_LEVEL_INFO);
-		rt_thread_delay(DELAY_S(5));
-	}
+	#ifdef RT_USING_ULOG
+	extern void ulog_example(void);
+	ulog_example();
+	#endif
 	
+	#ifdef RT_USING_LOGTRACE
+	extern void log_trace_example(void);
+	log_trace_example();
+	#endif
+
+	while(1){
+		;;;
+	}
+
     return 0;
 }
 
