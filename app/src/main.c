@@ -34,8 +34,8 @@ int main(void)
     /* user app entry */
 
 	#ifdef RT_USING_ULOG
-	extern void ulog_example(void);
-	ulog_example();
+	// extern void ulog_example(void);
+	// ulog_example();
 	#endif
 	
 	#ifdef RT_USING_LOGTRACE
