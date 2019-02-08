@@ -204,6 +204,8 @@ SECTIONS
     . = . + _Min_Heap_Size;
     . = . + _Min_Stack_Size;
     . = ALIGN(8);
+
+    __user_heap_stack_end = .;
   } >RAM
 
   

@@ -49,8 +49,22 @@ extern int Image$$RW_IRAM1$$ZI$$Limit;
 #pragma section="HEAP"
 #define STM32_SRAM_BEGIN    (__segment_end("HEAP"))
 #else
-extern int __bss_end;
-#define STM32_SRAM_BEGIN    (&__bss_end)
+// extern int __bss_end;
+// #define STM32_SRAM_BEGIN    (&__bss_end)
+
+/** ventus 20190209 [BUG Fixed] memory collapse.
+ * __bss_end is not the end of all.
+ * there is still one section after .bss section: ._user_heap_stack
+ * calling functions of ac6 arm toolchain libc, like time(x), sprintf(x), etc.
+ * will use the area of ._user_heap_stack. 
+ * rt-thread heap functions will also use memory from this, if set STM32_SRAM_BEGIN = __bss_end.
+ * 
+ * Thus cause memory collapse.
+ * 
+ * */
+extern int __user_heap_stack_end;
+#define STM32_SRAM_BEGIN    (&__user_heap_stack_end)
+
 #endif
 
 void rt_hw_board_init(void);
