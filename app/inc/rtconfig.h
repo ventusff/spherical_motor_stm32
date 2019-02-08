@@ -139,7 +139,7 @@
 // #define RT_USING_LOGTRACE
 // #define RT_USING_LOGTRACE_LEVEL_ //added by ventus
 
-// ulong
+// ulog
 #define RT_USING_ULOG
 #define ULOG_LINE_BUF_SIZE 128
 // #define ULOG_USING_SYSLOG
@@ -147,7 +147,12 @@
 #define ULOG_USING_FILTER
 // #define ULOG_OUTPUT_LVL      LOG_LVL_ERROR
 #define ULOG_OUTPUT_LVL      LOG_LVL_DBG
-#define ULOG_OUTPUT_TIME
+#define ULOG_OUTPUT_TIME        // output time
+#define ULOG_OUTPUT_LEVEL       // output level
+#define ULOG_OUTPUT_TAG         // output tag
+#define ULOG_OUTPUT_THREAD_NAME // output thread name
+// #define ULOG_USING_COLOR        // output color
+
 
 /* ARM CMSIS */
 
