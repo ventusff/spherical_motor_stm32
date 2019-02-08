@@ -1,4 +1,4 @@
-#include "jarvis_can.h"
+#include "can_example.h"
 #include <rtdevice.h>
 
 #include <finsh.h>
@@ -13,7 +13,7 @@ static rt_err_t can_rx_ind(rt_device_t dev, rt_size_t original_size);
 static struct rt_can_msg buffer[3];
 static struct rt_can_msg msg;
 
-static eJVCanRxHandlerPair_t handlers[JARVIS_CAN_HANLDER_NUM];
+static eCanRxHandlerPair_t handlers[JARVIS_CAN_HANLDER_NUM];
 static rt_uint32_t handlers_count = 0;
 
 typedef enum {
@@ -32,7 +32,7 @@ static struct ping_requet_t {
     rt_tick_t delay[3];
 } ping;
 
-int xJVCanInit(void)
+int xCanInit(void)
 {
     extern struct rt_can_device bxcan1;
     pcan = &bxcan1;
@@ -71,7 +71,7 @@ int xJVCanInit(void)
     ping.flag = 0;
     return DONE;
 }
-INIT_APP_EXPORT(xJVCanInit);
+INIT_APP_EXPORT(xCanInit);
 
 void ping_kinco(void)
 {
@@ -86,7 +86,7 @@ void ping_kinco(void)
 	}
     ping.flag |= PING_KINCO;
     ping.delay[PING_KINCO_T] = rt_tick_get();
-	xJVCanTransmit(&msg);
+	xCanTransmit(&msg);
 }
 MSH_CMD_EXPORT(ping_kinco, test can when kinco chassis is on the bus.)
 
@@ -104,7 +104,7 @@ void ping_stm32(void)
 	}
     ping.flag |= PING_STM32;
     ping.delay[PING_STM32_T] = rt_tick_get();
-	xJVCanTransmit(&msg);
+	xCanTransmit(&msg);
 }
 MSH_CMD_EXPORT(ping_stm32, test can when another stm32 is on the bus.)
 
@@ -171,7 +171,7 @@ static rt_err_t can_rx_ind(rt_device_t dev, rt_size_t original_size)
 
 
 /*-----------------------  port for other stacks/packages  -----------------------*/
-int xJVCanTransmit(struct rt_can_msg* msg)
+int xCanTransmit(struct rt_can_msg* msg)
 {
     if(pcan->parent.write(&pcan->parent, 0, msg, sizeof(struct rt_can_msg)))
     {
@@ -184,7 +184,7 @@ int xJVCanTransmit(struct rt_can_msg* msg)
 }
 
 
-int xJVCanDeviceRegister(eJVCanDeviceRegisterCfg_t* cfg)
+int xCanDeviceRegister(eCanDeviceRegisterCfg_t* cfg)
 {
     rt_uint8_t i  = 0;
     /*-----------------------  hanlders register  -----------------------*/
