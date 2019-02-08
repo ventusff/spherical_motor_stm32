@@ -138,7 +138,6 @@ rt_inline void __logtrace_fmtout(const struct log_trace_session *session,
                                      const char *fmt, ...)
 {
     va_list args;
-
     va_start(args, fmt);
     __logtrace_vfmtout(session, fmt, args);
     va_end(args);

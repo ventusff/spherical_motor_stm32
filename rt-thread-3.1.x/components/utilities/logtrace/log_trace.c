@@ -241,12 +241,14 @@ static rt_size_t _lg_parse_session(
     return 0;
 }
 
+/* 1 for ']' */
+static char _trace_buf[1+LOG_TRACE_BUFSZ];
 void __logtrace_vfmtout(const struct log_trace_session *session,
                         const char *fmt,
                         va_list argptr)
 {
-    /* 1 for ']' */
-    static char _trace_buf[1+LOG_TRACE_BUFSZ];
+    // /* 1 for ']' */
+    // static char _trace_buf[1+LOG_TRACE_BUFSZ];
     char *ptr;
     rt_size_t length;
 
@@ -289,6 +291,94 @@ void __logtrace_vfmtout(const struct log_trace_session *session,
     }
 }
 
+#ifdef RT_USING_LOGTRACE_LEVEL_
+// static const char __level_names[16][5 + 1] = {"NOTRA","ERROR","","WARN","", "INFO","", "VERB","", "DEBUG"};
+// added by ventus 20190208
+void __logtrace_vfmtout_with_level_and_NL( const struct log_trace_session *session, unsigned int level, 
+                        const char *fmt,
+                        va_list argptr)
+{
+    char *ptr;
+    rt_size_t length;
+
+    RT_ASSERT(session);
+    RT_ASSERT(fmt);
+
+    /* it's default session */
+    if (session->id.name[0] == '\0')
+    {
+        rt_snprintf(_trace_buf, sizeof(_trace_buf), "[%08x]", rt_tick_get());
+        if (_traceout_device != RT_NULL)
+        {
+            rt_device_write(_traceout_device, -1, _trace_buf, 10);
+        }
+
+        ptr = &_trace_buf[0];
+    }
+    else
+    {
+        rt_snprintf(_trace_buf, sizeof(_trace_buf), "[%08x][", rt_tick_get());
+        if (_traceout_device != RT_NULL)
+        {
+            rt_device_write(_traceout_device, -1, _trace_buf, 11);
+            rt_device_write(_traceout_device, -1,
+                    session->id.name, _idname_len(session->id.num));
+        }
+
+        _trace_buf[0] = ']';
+        ptr = &_trace_buf[1];
+
+        //added by ventus
+        if (_traceout_device != RT_NULL)
+        {
+            rt_device_write(_traceout_device, -1, _trace_buf, 1);
+        }
+    }
+
+    /* begin of added part by ventus: add level output. */
+    switch (level)
+    {
+        case LOG_TRACE_LEVEL_NOTRACE:
+            rt_snprintf(_trace_buf, sizeof(_trace_buf), "[%05s]", "NOTRA");
+            break;
+        case LOG_TRACE_LEVEL_ERROR:
+            rt_snprintf(_trace_buf, sizeof(_trace_buf), "[%05s]", "ERROR");
+            break;
+        case LOG_TRACE_LEVEL_WARNING:
+            rt_snprintf(_trace_buf, sizeof(_trace_buf), "[%05s]", "WARN");
+            break;
+        case LOG_TRACE_LEVEL_INFO:
+            rt_snprintf(_trace_buf, sizeof(_trace_buf), "[%05s]", "INFO");
+            break;
+        case LOG_TRACE_LEVEL_VERBOSE:
+            rt_snprintf(_trace_buf, sizeof(_trace_buf), "[%05s]", "VERB");
+            break;
+        case LOG_TRACE_LEVEL_DEBUG:
+            rt_snprintf(_trace_buf, sizeof(_trace_buf), "[%05s]", "DEBUG");
+            break;
+        default:
+            rt_snprintf(_trace_buf, sizeof(_trace_buf), "[%05s]", "XXXXX");
+            break;
+    }
+    if (_traceout_device != RT_NULL)
+    {
+        rt_device_write(_traceout_device, -1, _trace_buf, 7);
+    }
+    ptr = &_trace_buf[0];
+    /* end of added part by ventus: add level output. */
+
+    length = rt_vsnprintf(ptr, LOG_TRACE_BUFSZ, fmt, argptr);
+
+    if (length >= LOG_TRACE_BUFSZ)
+        length = LOG_TRACE_BUFSZ - 1;
+
+    if (_traceout_device != RT_NULL)
+    {
+        rt_device_write(_traceout_device, -1, _trace_buf, length + 1);
+    }
+}
+#endif
+
 void log_trace(const char *fmt, ...)
 {
     va_list args;
@@ -305,7 +395,11 @@ void log_trace(const char *fmt, ...)
         return;
 
     va_start(args, fmt);
+    #ifdef RT_USING_LOGTRACE_LEVEL_
+    __logtrace_vfmtout_with_level_and_NL(session, level, fmt, args);
+    #else
     __logtrace_vfmtout(session, fmt, args);
+    #endif
     va_end(args);
 }
 FINSH_FUNCTION_EXPORT(log_trace, log trace);
@@ -323,7 +417,11 @@ void log_session(const struct log_trace_session *session, const char *fmt, ...)
         return;
 
     va_start(args, fmt);
+    #ifdef RT_USING_LOGTRACE_LEVEL_
+    __logtrace_vfmtout_with_level_and_NL(session, level, fmt, args);
+    #else
     __logtrace_vfmtout(session, fmt, args);
+    #endif
     va_end(args);
 }
 

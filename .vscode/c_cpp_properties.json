@@ -11,7 +11,8 @@
                 "${workspaceFolder}\\app\\inc\\",
                 "${workspaceFolder}\\bsp\\inc\\",
                 "${workspaceFolder}\\CMSIS\\device\\",
-                "${workspaceFolder}\\CMSIS\\core\\"
+                "${workspaceFolder}\\CMSIS\\core\\",
+                "${workspaceFolder}\\rt-thread-3.1.x\\components\\utilities\\logtrace"
             ],
             "defines": [
                 "_DEBUG",

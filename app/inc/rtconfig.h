@@ -52,6 +52,9 @@
 #define RT_MAIN_THREAD_STACK_SIZE 2048
 #define RT_MAIN_THREAD_PRIORITY 10
 
+#define RT_USING_LOGTRACE
+#define RT_USING_LOGTRACE_LEVEL_ //added by ventus
+
 /* C++ features */
 
 
