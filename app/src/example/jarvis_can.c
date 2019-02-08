@@ -42,19 +42,14 @@ int xJVCanInit(void)
     pcan->config.msgboxsz = 2;
     // pcan->parent.init(&pcan->parent); // not ok!
     pcan->ops->configure(pcan, &pcan->config);
-    if(pcan->parent.open(&pcan->parent, \
-        RT_DEVICE_FLAG_INT_RX | RT_DEVICE_FLAG_INT_TX) != RT_EOK )
+    
+    if(rt_device_open(&pcan->parent, (RT_DEVICE_FLAG_INT_RX | RT_DEVICE_FLAG_INT_TX)) != RT_EOK )
     {
         // if open fails.
         return ERR;
     }
     else
     {
-        // VENTUS: 
-        // for some reason, ref_count of can device can not increase.
-        // so here we manually increase.
-        pcan->parent.ref_count++;
-
         pcan->parent.rx_indicate = can_rx_ind;
     }
 
