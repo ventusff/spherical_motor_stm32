@@ -43,7 +43,7 @@ int main(void)
     /* user app entry */
 
 	/* log trace test */
-	log_trace_set_device("uart2");
+	// log_trace_set_device("uart2");
 	log_trace_register_session(&_main_session);
 	while(1){
 		log_session(&_main_session, "testing...\n",LOG_TRACE_LEVEL_INFO);
