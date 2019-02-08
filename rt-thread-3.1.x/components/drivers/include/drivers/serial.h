@@ -78,9 +78,10 @@
 #define RT_SERIAL_TX_DATAQUEUE_LWM      30
 
 /* Default config for serial_configure structure */
+//ventus: changed to 460800 (was 115200) 
 #define RT_SERIAL_CONFIG_DEFAULT           \
 {                                          \
-    BAUD_RATE_460800, /* 460800 bits/s */   //ventus: changed to 460800 (was 115200) \
+    BAUD_RATE_460800, /* 460800 bits/s */  \
     DATA_BITS_8,      /* 8 databits */     \
     STOP_BITS_1,      /* 1 stopbit */      \
     PARITY_NONE,      /* No parity  */     \
