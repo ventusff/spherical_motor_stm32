@@ -174,8 +174,9 @@ struct rt_thread main_thread;
 /* the system main thread */
 void main_thread_entry(void *parameter)
 {
-    extern int main(void);
-    extern int $Super$$main(void);
+	// commented by guojianfei 20190208
+    // extern int main(void);
+    // extern int $Super$$main(void);
 
     /* RT-Thread components initialization */
     rt_components_init();

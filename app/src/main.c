@@ -11,7 +11,7 @@
 
 #include <rthw.h>
 #include <rtthread.h>
-
+#include <board.h>
 /**
  * @addtogroup STM32
  */
@@ -20,6 +20,11 @@
 
 int main(void)
 {
+	//wait system init.
+	rt_thread_delay(DELAY_10MS(10));
+	RCC_ClocksTypeDef  rcc_clocks;
+	RCC_GetClocksFreq(&rcc_clocks);
+	rt_kprintf("fHCLK = %d, fMAIN = %d, fPCLK1 = %d, fPCLK2 = %d. \n",rcc_clocks.HCLK_Frequency, rcc_clocks.SYSCLK_Frequency, rcc_clocks.PCLK1_Frequency, rcc_clocks.PCLK2_Frequency);
     /* user app entry */
     return 0;
 }

@@ -316,8 +316,8 @@ static void bxcan2_filter_init(struct rt_can_device *can)
 
 static const struct stm_baud_rate_tab bxcan_baud_rate_tab[] =
 {
-#ifndef STM32F40_41xxx
-#ifdef STM32F10X_CL
+#if defined STM32F10X
+#if defined STM32F10X_CL
     // 48 M
     {1000UL * 1000, MK_BKCAN_BAUD(CAN_SJW_2tq, CAN_BS1_12tq, CAN_BS2_3tq, 3)},
     {1000UL * 800,  MK_BKCAN_BAUD(CAN_SJW_2tq, CAN_BS1_6tq,  CAN_BS2_3tq, 6)},
@@ -340,17 +340,31 @@ static const struct stm_baud_rate_tab bxcan_baud_rate_tab[] =
 	{1000UL * 20,	MK_BKCAN_BAUD(CAN_SJW_2tq, CAN_BS1_14tq, CAN_BS2_3tq, 100)},
 	{1000UL * 10,	MK_BKCAN_BAUD(CAN_SJW_2tq, CAN_BS1_14tq, CAN_BS2_3tq, 200)}
 #endif
-#else  // 1bit = (SYNC_SE(1tq) + CAN_BS1 + CAN_BS2) , 1 tq = 1/APB1_clock * prescaler
+
+#elif defined STM32F40_41xxx
+    // 1bit = (SYNC_SE(1tq) + CAN_BS1 + CAN_BS2) , 1 tq = 1/APB1_clock * prescaler
 	// 42 M
 	{1000UL * 1000, MK_BKCAN_BAUD(CAN_SJW_2tq, CAN_BS1_10tq, CAN_BS2_3tq, 3)},      // 42 = 3 * 14
 	{1000UL * 800,	MK_BKCAN_BAUD(CAN_SJW_2tq, CAN_BS1_10tq, CAN_BS2_2tq, 4)},      // 42/0.8 = 52.5  (52 = 4*13)
-	{1000UL * 500,	MK_BKCAN_BAUD(CAN_SJW_2tq, CAN_BS1_9tq,  CAN_BS2_2tq, 7)},      // 42/7/(9+2+1) = 0.5  
-	{1000UL * 250,	MK_BKCAN_BAUD(CAN_SJW_2tq, CAN_BS1_13tq, CAN_BS2_2tq, 13)},     // 42/0.25 = 168 = 13 * 16
-	{1000UL * 125,	MK_BKCAN_BAUD(CAN_SJW_2tq, CAN_BS1_13tq, CAN_BS2_2tq, 26)},     // 42/0.125 = 26 * 16
+	{1000UL * 500,	MK_BKCAN_BAUD(CAN_SJW_2tq, CAN_BS1_8tq,  CAN_BS2_3tq, 7)},      // 42/0.5 = 84 = 7 * 12
+	{1000UL * 250,	MK_BKCAN_BAUD(CAN_SJW_2tq, CAN_BS1_8tq,  CAN_BS2_3tq, 13)},     // 42/0.25 = 168 = 14 * 12
+	{1000UL * 125,	MK_BKCAN_BAUD(CAN_SJW_2tq, CAN_BS1_8tq,  CAN_BS2_3tq, 28)},     // 42/0.125 = 28 * 12
 	{1000UL * 100,	MK_BKCAN_BAUD(CAN_SJW_2tq, CAN_BS1_10tq, CAN_BS2_3tq, 30)},     // 42/0.1 = 42 * 10 = 14 * 30
 	{1000UL * 50,	MK_BKCAN_BAUD(CAN_SJW_2tq, CAN_BS1_12tq, CAN_BS2_2tq, 56)},     // 42/0.05 = 42 * 20 = 56 * 15
 	{1000UL * 20,	MK_BKCAN_BAUD(CAN_SJW_2tq, CAN_BS1_16tq, CAN_BS2_3tq, 105)},    // 42/0.02 = 42 * 50 = 20 * 105
 	{1000UL * 10,	MK_BKCAN_BAUD(CAN_SJW_2tq, CAN_BS1_16tq, CAN_BS2_3tq, 210)}     // 42/0.01 = 42 * 100 = 20 * 210
+
+#elif defined STM32F429_439xx
+	// 45M
+	{1000UL * 1000, MK_BKCAN_BAUD(CAN_SJW_2tq, CAN_BS1_10tq, CAN_BS2_4tq, 3)},      // 45/1 = 45
+	{1000UL * 800,	MK_BKCAN_BAUD(CAN_SJW_2tq, CAN_BS1_10tq, CAN_BS2_3tq, 4)},      // 45/0.8 = 56.25 ~= 56 = 4 * 14
+	{1000UL * 500,	MK_BKCAN_BAUD(CAN_SJW_2tq, CAN_BS1_10tq, CAN_BS2_4tq, 6)},      // 45/0.5 = 90 = 6 * 15
+	{1000UL * 250,	MK_BKCAN_BAUD(CAN_SJW_2tq, CAN_BS1_10tq, CAN_BS2_4tq, 12)},     // 45/0.25 = 180 = 12 * 15
+	{1000UL * 125,	MK_BKCAN_BAUD(CAN_SJW_2tq, CAN_BS1_10tq, CAN_BS2_4tq, 24)},     // 45/0.125 = 360 =  24 * 15
+	{1000UL * 100,	MK_BKCAN_BAUD(CAN_SJW_2tq, CAN_BS1_10tq, CAN_BS2_4tq, 30)},     // 45/0.1 = 450 = 30 * 15
+	{1000UL * 50,	MK_BKCAN_BAUD(CAN_SJW_2tq, CAN_BS1_10tq, CAN_BS2_4tq, 60)},     // 45/0.05 = 900 = 60 * 15
+	{1000UL * 20,	MK_BKCAN_BAUD(CAN_SJW_2tq, CAN_BS1_10tq, CAN_BS2_4tq, 150)},    // 45/0.02 = 2250 = 150 * 15
+	{1000UL * 10,	MK_BKCAN_BAUD(CAN_SJW_2tq, CAN_BS1_10tq, CAN_BS2_4tq, 300)}     // 45/0.01 = 4500 = 300 * 15
 #endif
 };
 
@@ -434,6 +448,26 @@ static void bxcan_init(CAN_TypeDef *pcan, rt_uint32_t baud, rt_uint32_t mode)
     CAN_Init(pcan, &CAN_InitStructure);
 }
 
+
+#if defined STM32F429_439xx
+#define CAN1_PORT GPIOA
+
+#define CAN1_RX_PIN GPIO_Pin_12
+#define CAN1_RX_PIN_SOURCE GPIO_PinSource12
+
+#define CAN1_TX_PIN GPIO_Pin_13
+#define CAN1_TX_PIN_SOURCE GPIO_PinSource13
+#else
+#define CAN1_PORT GPIOA
+
+#define CAN1_RX_PIN GPIO_Pin_11
+#define CAN1_RX_PIN_SOURCE GPIO_PinSource11
+
+#define CAN1_TX_PIN GPIO_Pin_12
+#define CAN1_TX_PIN_SOURCE GPIO_PinSource12
+#endif
+
+
 //changed by guojianfei 20190119
 static void bxcan1_hw_init(void)
 {
@@ -442,22 +476,22 @@ static void bxcan1_hw_init(void)
 
     RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE);
 
-    GPIO_PinAFConfig(GPIOA, GPIO_PinSource11, GPIO_AF_CAN1);    //CAN1_RX
-    GPIO_PinAFConfig(GPIOA, GPIO_PinSource12, GPIO_AF_CAN1);    //CAN1_TX
+    GPIO_PinAFConfig(CAN1_PORT, CAN1_RX_PIN_SOURCE, GPIO_AF_CAN1);    //CAN1_RX
+    GPIO_PinAFConfig(CAN1_PORT, CAN1_TX_PIN_SOURCE, GPIO_AF_CAN1);    //CAN1_TX
 
     //CAN1_RX
-    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_11;
+    GPIO_InitStructure.GPIO_Pin = CAN1_RX_PIN;
     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;
     GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
-    GPIO_Init(GPIOA, &GPIO_InitStructure);
+    GPIO_Init(CAN1_PORT, &GPIO_InitStructure);
 
     //CAN1_TX
-    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_12;
+    GPIO_InitStructure.GPIO_Pin = CAN1_TX_PIN;
     GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
     GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;
     GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;
-    GPIO_Init(GPIOA, &GPIO_InitStructure);
+    GPIO_Init(CAN1_PORT, &GPIO_InitStructure);
 
     NVIC_PriorityGroupConfig(NVIC_PriorityGroup_1);
     NVIC_InitStructure.NVIC_IRQChannel = CAN1_RX0_IRQn;

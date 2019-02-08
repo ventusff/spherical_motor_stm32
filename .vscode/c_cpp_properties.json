@@ -17,6 +17,7 @@
                 "_DEBUG",
                 "UNICODE",
                 "_UNICODE",
+                "STM32F4",
                 "STM32F40XX",
                 "STM32F40_41xxx",
                 "__GNUC__",
