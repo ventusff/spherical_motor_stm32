@@ -2,6 +2,7 @@
     "workbench.editor.enablePreview": false,
     "files.associations": {
         "finsh.h": "c",
-        "board.h": "c"
+        "board.h": "c",
+        "time.h": "c"
     }
 }

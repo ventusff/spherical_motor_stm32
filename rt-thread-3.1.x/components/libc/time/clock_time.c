@@ -12,7 +12,12 @@
 #include <rtthread.h>
 #include <pthread.h>
 
+//added by guojianfei 20190208
+#include <rtdevice.h>
+#include <time.h>
+
 #include "clock_time.h"
+
 
 static struct timeval _timevalue;
 int clock_time_system_init()
