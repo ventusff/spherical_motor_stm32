@@ -4,6 +4,8 @@
         "finsh.h": "c",
         "board.h": "c",
         "time.h": "c",
-        "syslog.h": "c"
+        "syslog.h": "c",
+        "serial.h": "c",
+        "compiler.h": "c"
     }
 }
