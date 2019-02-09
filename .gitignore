@@ -1,3 +1,6 @@
 Debug/
 .vscode/settings.json
 .settings/language.settings.xml
+node_modules/
+package.json
+package-lock.json
