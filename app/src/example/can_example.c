@@ -39,17 +39,12 @@ static struct ping_requet_t {
 
 int xCanInit(void)
 {
-<<<<<<< HEAD
-    extern struct rt_can_device bxcan1;
-    pcan = &bxcan1;
-=======
     rt_mq_init(&eCanMq, "CAN1 mq", &CANmqPoll, \ 
         sizeof(struct rt_can_msg), sizeof(CANmqPoll), RT_IPC_FLAG_FIFO);
     
 
     // extern struct rt_can_device bxcan1;
     pcan = (rt_can_t)rt_device_find("bxcan1");
->>>>>>> d8c3d30... fix(app example): fix can example ping structure.
 
     pcan->config.baud_rate = CAN500kBaud;
     pcan->config.mode = RT_CAN_MODE_NORMAL;
