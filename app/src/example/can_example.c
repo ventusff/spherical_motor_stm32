@@ -181,14 +181,14 @@ void vCanRcvRcvPoll(void)
         id = handler_msg.id;
 
         /*-----------------------  ping functions  -----------------------*/
-        if(id = 0x599)
+        if(id == 0x599)
         {
             if(ping.flag & PING_STM32) //if ping, calc delay
             {
                 rt_kprintf("\n===========================\nping stm32: \n");
                 ping.flag &=~ PING_STM32;
                 ping.delay[PING_STM32_T] = rt_tick_get() - ping.delay[PING_STM32_T];
-                rt_kprintf("Delay: %.1f ms. \n",ping.delay[PING_STM32_T]/10.0f);
+                rt_kprintf("Delay: %.1f ms. \n",FROM_TICK_TO_MS(ping.delay[PING_STM32_T]));
                 ping_got_response = 1;
             }
             else //if not pinging, send response.
@@ -211,7 +211,7 @@ void vCanRcvRcvPoll(void)
             rt_kprintf("\n===========================\nping kinco: \n");
             ping.flag &=~ PING_KINCO;
             ping.delay[PING_KINCO_T] = rt_tick_get() - ping.delay[PING_KINCO_T];
-            rt_kprintf("Delay: %.1f ms. \n",ping.delay[PING_KINCO_T]/10.0f);
+            rt_kprintf("Delay: %.1f ms. \n",FROM_TICK_TO_MS(ping.delay[PING_KINCO_T]));
             ping_got_response = 1;
         }
 

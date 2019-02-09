@@ -40,5 +40,7 @@
 #define DELAY_SYS_SLEEP_LED			DELAY_MS(1000)
 #define DELAY_SYS_WAIT_INIT         DELAY_MS(1000)
 
+#define FROM_TICK_TO_MS(x) (x * 1000.0 / RT_TICK_PER_SECOND)
+
 #endif  
 
