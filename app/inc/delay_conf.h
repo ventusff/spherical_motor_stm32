@@ -24,15 +24,18 @@
 
 #elif (RT_TICK_PER_SECOND == 1000)
 
+
 #define DELAY_1MS           (RT_TICK_PER_SECOND/1000)		
 #define DELAY_MS(X)         (X*DELAY_1MS)
 #define DELAY_S(X)		    (X*1000*DELAY_1MS)
+#define	DELAY_10MS(X)		DELAY_MS(10*X)
 
 #elif (RT_TICK_PER_SECOND == 10000)
 #define DELAY_100US(X)      (X*RT_TICK_PER_SECOND/10000)
 #define DELAY_1MS           (RT_TICK_PER_SECOND/1000)		
 #define DELAY_MS(X)         (X*DELAY_1MS)
 #define DELAY_S(X)		    (X*1000*DELAY_1MS)
+#define	DELAY_10MS(X)		DELAY_MS(10*X)
 
 #endif
 

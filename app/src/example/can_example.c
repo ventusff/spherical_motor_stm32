@@ -39,8 +39,7 @@ static struct ping_requet_t {
 
 int xCanInit(void)
 {
-    rt_mq_init(&eCanMq, "CAN1 mq", &CANmqPoll, \ 
-        sizeof(struct rt_can_msg), sizeof(CANmqPoll), RT_IPC_FLAG_FIFO);
+    rt_mq_init(&eCanMq, "CAN1 mq", &CANmqPoll, sizeof(struct rt_can_msg), sizeof(CANmqPoll), RT_IPC_FLAG_FIFO);
     
 
     // extern struct rt_can_device bxcan1;
