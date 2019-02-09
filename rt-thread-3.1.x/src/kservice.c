@@ -949,6 +949,29 @@ rt_int32_t rt_vsnprintf(char       *buf,
         case 'u':
             break;
 
+        //added by ventus 20181214
+        //DIY implementation of %f
+        case 'f':
+        {
+            double f = va_arg(args, double);
+            char * tmpSign = (f < 0.0f)? "-":"";
+            float tmpVal = f < 0.0f? -f:f;
+            rt_uint32_t tmpInt1 = tmpVal;
+            float tmpFrac = tmpVal - tmpInt1;
+            rt_uint32_t tmpInt2 = 0;
+            int tempIdx = precision;
+            while(tempIdx--)
+            {
+                tmpFrac*=10;
+            }
+            tmpInt2 = (rt_uint32_t)tmpFrac;
+            rt_snprintf(str,end - str, "%s%d.%0*d",tmpSign, tmpInt1, precision, tmpInt2);
+            len = rt_strlen(str);
+            str += len;
+            continue;
+            break;
+        }
+
         default:
             if (str <= end) *str = '%';
             ++ str;
