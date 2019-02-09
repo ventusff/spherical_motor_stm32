@@ -39,8 +39,13 @@ int main(void)
 	#endif
 	
 	#ifdef RT_USING_LOGTRACE
-	extern void log_trace_example(void);
-	log_trace_example();
+	// extern void log_trace_example(void);
+	// log_trace_example();
+	#endif
+
+	#ifdef RT_USING_CAN
+	extern void vCanRcvRcvPoll(void);
+	vCanRcvRcvPoll();
 	#endif
 
 	while(1){
