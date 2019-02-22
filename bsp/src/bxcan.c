@@ -411,7 +411,7 @@ static void bxcan_init(CAN_TypeDef *pcan, rt_uint32_t baud, rt_uint32_t mode)
     // CAN_InitStructure.CAN_TXFP = ENABLE;
 
 
-    CAN_InitStructure.CAN_TTCM = ENABLE;
+    CAN_InitStructure.CAN_TTCM = DISABLE;   //! this needs to be disabled. or the data will be interferred.
     CAN_InitStructure.CAN_ABOM = ENABLE;
     CAN_InitStructure.CAN_AWUM = ENABLE;
     CAN_InitStructure.CAN_NART = ENABLE;
