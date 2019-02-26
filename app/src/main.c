@@ -44,12 +44,16 @@ int main(void)
 	#endif
 
 	#ifdef RT_USING_CAN
-	extern void vCanRcvRcvPoll(void);
-	vCanRcvRcvPoll();
+	// extern void vCanRcvRcvPoll(void);
+	// vCanRcvRcvPoll();
 	#endif
 
+	/* usart example */
+	extern void example_usart_poll(void);
+
 	while(1){
-		rt_thread_delay(DELAY_S(1));
+		example_usart_poll();
+		// rt_thread_delay(DELAY_S(1));
 	}
 
     return 0;
