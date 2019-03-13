@@ -5,7 +5,7 @@
 
 static rt_serial_t *serial;
 static rt_uint8_t buffer[] = {0xAA, 0x55, 0x09, 0x02, 0x03, 0x00, 0x00, 0x00, 0xF7};
-static rt_tick_t __delay_tick = DELAY_MS(100);
+static rt_int32_t __delay_tick = DELAY_MS(100);
 
 int example_usart_system_init(void)
 {
@@ -27,8 +27,15 @@ INIT_DEVICE_EXPORT(example_usart_system_init)
 
 void example_usart_poll(void)
 {
-    rt_device_write(&serial->parent, 0, buffer, sizeof(buffer));
-    rt_thread_delay(__delay_tick);
+    if(__delay_tick > 0)
+    {
+        rt_device_write(&serial->parent, 0, buffer, sizeof(buffer));
+        rt_thread_delay(__delay_tick);
+    }
+    else
+    {
+        rt_thread_delay(1);
+    }
 }
 
 void set_send_freq(int argc, char **argv)
@@ -44,6 +51,7 @@ void set_send_freq(int argc, char **argv)
         rt_enter_critical();
         if (data  == 0) {
             __delay_tick = -1;
+            rt_kprintf("Stop sending. \n");
         }
         else
         {
