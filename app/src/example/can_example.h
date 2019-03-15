@@ -8,21 +8,21 @@ typedef void (*vCanRxHandler_t) (rt_uint32_t id, rt_uint32_t len, rt_uint8_t* da
 typedef struct eCanRxHandlerPair_typedef {
     rt_uint32_t id;
     vCanRxHandler_t handler;
-} eCanRxHandlerPair_t;
+} eCanRxNodeHandlerPair_t;
 
 typedef struct eCanRxHandlerCfg_typedef {
-    rt_uint32_t count;
-    eCanRxHandlerPair_t* pairs;
+    rt_uint32_t nodes_count;
+    eCanRxNodeHandlerPair_t* node_handlers;
 } eCanRxHandlerCfg_t;
 
 typedef struct eCanDeviceRegisterCfg_typedef {
     struct rt_can_filter_config filer_cfg;
     eCanRxHandlerCfg_t handler_cfg;
-} eCanDeviceRegisterCfg_t;
+} eCanNodeRegisterCfg_t;
 
 int xCanInit(void);
 int xCanTransmit(struct rt_can_msg* msg);
-int xCanDeviceRegister(eCanDeviceRegisterCfg_t* cfg);
+int xCanDeviceRegister(eCanNodeRegisterCfg_t* cfg);
 
 
 #endif
