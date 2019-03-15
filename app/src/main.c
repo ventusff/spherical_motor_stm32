@@ -43,11 +43,6 @@ int main(void)
 	// log_trace_example();
 	#endif
 
-	#ifdef RT_USING_CAN
-	// extern void vCanRcvRcvPoll(void);
-	// vCanRcvRcvPoll();
-	#endif
-
 	/* usart example */
 	extern void example_usart_poll(void);
 
