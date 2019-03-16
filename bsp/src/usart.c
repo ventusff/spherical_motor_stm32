@@ -135,22 +135,67 @@ static rt_err_t stm32_control(struct rt_serial_device *serial, int cmd, void *ar
 {
     struct stm32_uart* uart;
 
+    //added by ventus 20181214
+    rt_uint32_t ctrl_arg = (rt_uint32_t)(arg);
+
     RT_ASSERT(serial != RT_NULL);
     uart = (struct stm32_uart *)serial->parent.user_data;
 
     switch (cmd)
     {
     case RT_DEVICE_CTRL_CLR_INT:
-        /* disable rx irq */
-        UART_DISABLE_IRQ(uart->irq);
-        /* disable interrupt */
-        USART_ITConfig(uart->uart_device, USART_IT_RXNE, DISABLE);
+        // /* disable rx irq */
+        // UART_DISABLE_IRQ(uart->irq);
+        // /* disable interrupt */
+        // USART_ITConfig(uart->uart_device, USART_IT_RXNE, DISABLE);
+        // break;
+
+        /* -----------------------  changed by ventus 20181212  ----------------------- */
+        // for dma mode, diable dma request also.
+        if(ctrl_arg == RT_DEVICE_FLAG_DMA_RX) {
+            USART_DMACmd(uart->uart_device, USART_DMAReq_Rx, DISABLE);
+            UART_DISABLE_IRQ(uart->irq); 
+            USART_ITConfig(uart->uart_device, USART_IT_IDLE, DISABLE);
+            DMA_ITConfig(uart->dma.rx_stream, DMA_IT_TC, DISABLE);
+            DMA_DISABLE_IRQ(uart->dma.rx_irq_ch);
+            //changed by ventus 20181214:
+            //if we disable dma_cmd, will trigger one dma_rx_done interrupt with 0x00 bytes.
+            //DMA_Cmd(uart->dma.rx_stream, DISABLE);
+        }
+        else
+        {
+            //changed by ventus 20181214. for DMA mode, we DO NOT use RXNE interrupt.
+            /* disable rx irq */
+            UART_DISABLE_IRQ(uart->irq);
+            /* disable interrupt */
+            USART_ITConfig(uart->uart_device, USART_IT_RXNE, DISABLE);
+        }
         break;
     case RT_DEVICE_CTRL_SET_INT:
-        /* enable rx irq */
-        UART_ENABLE_IRQ(uart->irq);
-        /* enable interrupt */
-        USART_ITConfig(uart->uart_device, USART_IT_RXNE, ENABLE);
+        // /* enable rx irq */
+        // UART_ENABLE_IRQ(uart->irq);
+        // /* enable interrupt */
+        // USART_ITConfig(uart->uart_device, USART_IT_RXNE, ENABLE);
+        // break;
+
+        /* -----------------------  added by ventus 20181212  ----------------------- */
+        // for dma mode, diable dma request also.
+        if(ctrl_arg == RT_DEVICE_FLAG_DMA_RX) {
+            /* enable rx irq */
+            USART_DMACmd(uart->uart_device, USART_DMAReq_Rx, ENABLE);
+            UART_ENABLE_IRQ(uart->irq);
+            USART_ITConfig(uart->uart_device, USART_IT_IDLE, ENABLE);
+            DMA_ENABLE_IRQ(uart->dma.rx_irq_ch);
+            DMA_ITConfig(uart->dma.rx_stream, DMA_IT_TC, ENABLE);
+        }
+        else
+        {
+            //changed by ventus 20181214. for DMA mode, we DO NOT use RXNE interrupt.
+            /* enable rx irq */
+            UART_ENABLE_IRQ(uart->irq);
+            /* enable interrupt */
+            USART_ITConfig(uart->uart_device, USART_IT_RXNE, ENABLE);
+        }
         break;
 #ifdef RT_SERIAL_USING_DMA
         /* USART config */
@@ -250,7 +295,13 @@ static void dma_uart_rx_idle_isr(struct rt_serial_device *serial) {
     /* enable interrupt */
     rt_hw_interrupt_enable(level);
 
+    // if (recv_len) rt_hw_serial_isr(serial, RT_SERIAL_EVENT_RX_DMADONE | (recv_len << 8));
+    /* -----------------------  changed by guojianfei 20181214  ----------------------- */
+    #if defined RT_USING_SERIAL_DMA_IDLE_ONLY
+    rt_hw_serial_isr(serial, RT_SERIAL_EVENT_RX_DMADONE | (recv_len << 8));
+    #else
     if (recv_len) rt_hw_serial_isr(serial, RT_SERIAL_EVENT_RX_DMADONE | (recv_len << 8));
+    #endif
 
     /* read a data for clear receive idle interrupt flag */
     USART_ReceiveData(uart->uart_device);
@@ -278,7 +329,13 @@ static void dma_rx_done_isr(struct rt_serial_device *serial)
         /* enable interrupt */
         rt_hw_interrupt_enable(level);
 
+        // if (recv_len) rt_hw_serial_isr(serial, RT_SERIAL_EVENT_RX_DMADONE | (recv_len << 8));
+        // changed by guojianfei 20181214
+        #if defined RT_USING_SERIAL_DMA_IDLE_ONLY
+        if (recv_len) rt_hw_serial_isr(serial, RT_SERIAL_EVENT_RX_DMADONE_SILENT | (recv_len << 8));
+        #else
         if (recv_len) rt_hw_serial_isr(serial, RT_SERIAL_EVENT_RX_DMADONE | (recv_len << 8));
+        #endif
 
         /* start receive data */
         DMA_ClearFlag(uart->dma.rx_stream, uart->dma.rx_flag);

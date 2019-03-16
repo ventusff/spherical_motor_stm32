@@ -63,6 +63,8 @@
 #define RT_SERIAL_EVENT_RX_DMADONE      0x03    /* Rx DMA transfer done */
 #define RT_SERIAL_EVENT_TX_DMADONE      0x04    /* Tx DMA transfer done */
 #define RT_SERIAL_EVENT_RX_TIMEOUT      0x05    /* Rx timeout    */
+//added by guojianfei 20181214
+#define RT_SERIAL_EVENT_RX_DMADONE_SILENT 0x06    /* Rx DMA transfer done and do not trigger soft isr. */
 
 #define RT_SERIAL_DMA_RX                0x01
 #define RT_SERIAL_DMA_TX                0x02

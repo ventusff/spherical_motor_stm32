@@ -1267,6 +1267,27 @@ void rt_hw_serial_isr(struct rt_serial_device *serial, int event)
             }
             break;
         }
+        //added by ventus 20190214
+        #if defined RT_USING_SERIAL_DMA_IDLE_ONLY
+        case RT_SERIAL_EVENT_RX_DMADONE_SILENT:
+        {
+            int length;
+            rt_base_t level;
+
+            /* get DMA rx length */
+            length = (event & (~0xff)) >> 8;
+            /* disable interrupt */
+            level = rt_hw_interrupt_disable();
+            /* update fifo put index */
+            rt_dma_recv_update_put_index(serial, length);
+            /* calculate received total length */
+            length = rt_dma_calc_recved_len(serial);
+            /* enable interrupt */
+            rt_hw_interrupt_enable(level);
+            //changed by guojianfei 20181214 do not call user indicate in dma done
+            break;
+        }
+        #endif
 #endif /* RT_SERIAL_USING_DMA */
     }
 }
