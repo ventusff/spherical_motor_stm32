@@ -13,7 +13,9 @@
                 "${workspaceFolder}\\CMSIS\\device\\",
                 "${workspaceFolder}\\CMSIS\\core\\",
                 "${workspaceFolder}\\rt-thread-3.1.x\\components\\utilities\\logtrace",
-                "${workspaceFolder}\\rt-thread-3.1.x\\components\\utilities\\ulog"
+                "${workspaceFolder}\\rt-thread-3.1.x\\components\\utilities\\ulog",
+                "${workspaceFolder}\\spherical_motor\\inc"
+
             ],
             "defines": [
                 "_DEBUG",

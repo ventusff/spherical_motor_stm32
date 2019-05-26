@@ -20,7 +20,7 @@
  * CS0: PA4  SD card.
 */
 
-/* SPI GPIO define. */
+/* SPI bus GPIO define. */
 #define SPI1_GPIO_SCK       GPIO_Pin_5
 #define SPI1_SCK_PIN_SOURCE GPIO_PinSource5
 #define SPI1_GPIO_MISO       GPIO_Pin_6
@@ -40,6 +40,16 @@
 #define SPI2_GPIO          GPIOB
 #define SPI2_GPIO_RCC      RCC_AHB1Periph_GPIOB
 #define RCC_APBPeriph_SPI2 RCC_APB1Periph_SPI2
+
+/* SPI device GPIO define */
+#define MOUSE1_GPIO_CS GPIO_Pin_15
+#define MOUSE1_GPIO GPIOG
+#define MOUSE1_GPIO_RCC RCC_AHB1Periph_GPIOG
+
+#define MOUSE2_GPIO_CS GPIO_Pin_9
+#define MOUSE2_GPIO GPIOF
+#define MOUSE2_GPIO_RCC RCC_AHB1Periph_GPIOF
+
 
 static void rt_hw_spi_init(void)
 {
@@ -66,29 +76,51 @@ static void rt_hw_spi_init(void)
 
         stm32_spi_register(SPI1, &stm32_spi, "spi1");
     }
+    /* attach spi device for mouse 1*/
+    {
+        static struct rt_spi_device spi_device;
+        static struct stm32_spi_cs  spi_cs;
 
-    // /* attach cs */
-    // {
-    //     static struct rt_spi_device spi_device;
-    //     static struct stm32_spi_cs  spi_cs;
+        GPIO_InitTypeDef GPIO_InitStructure;
 
-    //     GPIO_InitTypeDef GPIO_InitStructure;
+        GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+        GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;
+        GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
 
-    //     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-    //     GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;
-    //     GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
+        /* spi10: PA4 */
+        spi_cs.GPIOx = MOUSE1_GPIO;
+        spi_cs.GPIO_Pin = MOUSE1_GPIO_CS;
+        RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOG, ENABLE);
 
-    //     /* spi10: PA4 */
-    //     spi_cs.GPIOx = GPIOA;
-    //     spi_cs.GPIO_Pin = GPIO_Pin_4;
-    //     RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);
+        GPIO_InitStructure.GPIO_Pin = spi_cs.GPIO_Pin;
+        GPIO_SetBits(spi_cs.GPIOx, spi_cs.GPIO_Pin);
+        GPIO_Init(spi_cs.GPIOx, &GPIO_InitStructure);
 
-    //     GPIO_InitStructure.GPIO_Pin = spi_cs.GPIO_Pin;
-    //     GPIO_SetBits(spi_cs.GPIOx, spi_cs.GPIO_Pin);
-    //     GPIO_Init(spi_cs.GPIOx, &GPIO_InitStructure);
+        rt_spi_bus_attach_device(&spi_device, "mouse1", "spi1", (void*)&spi_cs);
+    }
+    /* attach spi device for mouse 2*/
+    {
+        static struct rt_spi_device spi_device;
+        static struct stm32_spi_cs  spi_cs;
 
-    //     rt_spi_bus_attach_device(&spi_device, "spi10", "spi1", (void*)&spi_cs);
-    // }
+        GPIO_InitTypeDef GPIO_InitStructure;
+
+        GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+        GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;
+        GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
+
+        /* spi10: PA4 */
+        spi_cs.GPIOx = MOUSE2_GPIO;
+        spi_cs.GPIO_Pin = MOUSE2_GPIO_CS;
+        RCC_AHB1PeriphClockCmd(MOUSE2_GPIO_RCC, ENABLE);
+
+        GPIO_InitStructure.GPIO_Pin = spi_cs.GPIO_Pin;
+        GPIO_SetBits(spi_cs.GPIOx, spi_cs.GPIO_Pin);
+        GPIO_Init(spi_cs.GPIOx, &GPIO_InitStructure);
+
+        rt_spi_bus_attach_device(&spi_device, "mouse2", "spi1", (void*)&spi_cs);
+    }
+
 #endif /* RT_USING_SPI1 */
 
 #ifdef RT_USING_SPI2
