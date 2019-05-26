@@ -12,6 +12,15 @@
  * 2016-05-28     armink       add DMA Rx mode
  */
 
+/* used DMA stream */
+/**
+ * uart1    dma2_stream5 
+ * uart2    dma1_stream5
+ * uart3    dma1_stream1 
+ * uart4    dma1_stream2
+ * uart5    dma1_stream0
+ * */
+
 #include "stm32f4xx.h"
 #include "usart.h"
 #include "board.h"

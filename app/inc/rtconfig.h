@@ -106,6 +106,14 @@
 #define RT_USING_HWTIMER
 #define RT_USING_ADC
 
+/* SPI Drivers */ //added by ventus
+#define RT_USING_SPI
+#define RT_SPI_USE_DMA
+#define RT_USING_SPI1
+#define SPI1_USING_DMA
+#define RT_USING_SPI2
+#define SPI2_USING_DMA
+
 
 /* Using USB */
 
