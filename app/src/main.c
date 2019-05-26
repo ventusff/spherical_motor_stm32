@@ -43,6 +43,11 @@ int main(void)
 	// log_trace_example();
 	#endif
 
+	#ifdef RT_USING_SPI
+	extern void spi_example();
+	spi_example();
+	#endif
+
 	/* usart example */
 	extern void example_usart_poll(void);
 
