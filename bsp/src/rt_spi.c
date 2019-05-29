@@ -311,36 +311,47 @@ void DMA1_Stream4_IRQHandler(void) {
 
 #endif /*RT_SPI_USE_DMA*/
 
-rt_inline uint16_t get_spi_BaudRatePrescaler(rt_uint32_t max_hz)
+/* depends on different board */
+rt_inline uint16_t get_spi_BaudRatePrescaler(SPI_TypeDef* spi, rt_uint32_t max_hz)
 {
     uint16_t SPI_BaudRatePrescaler;
+    uint32_t APB_Clock_Half = SystemCoreClock / 8;
 
-    /* STM32F10x SPI MAX 18Mhz */
-    if(max_hz >= SystemCoreClock/2 && SystemCoreClock/2 <= 36000000)
+    /* SPI1 MAX: 42Mbit/s, SPI2,SPI3 MAX: 21Mbit/s */
+    if(spi == SPI1)
+    {
+        APB_Clock_Half = SystemCoreClock / 4;
+    }
+    else if(spi == SPI2 || spi == SPI3)
+    {
+        APB_Clock_Half = SystemCoreClock / 8;
+    }
+
+    if(max_hz >= APB_Clock_Half / 2)
     {
         SPI_BaudRatePrescaler = SPI_BaudRatePrescaler_2;
     }
-    else if(max_hz >= SystemCoreClock/4)
+    else if(max_hz >= APB_Clock_Half/4)
     {
         SPI_BaudRatePrescaler = SPI_BaudRatePrescaler_4;
     }
-    else if(max_hz >= SystemCoreClock/8)
+    else if(max_hz >= APB_Clock_Half/8)
     {
         SPI_BaudRatePrescaler = SPI_BaudRatePrescaler_8;
     }
-    else if(max_hz >= SystemCoreClock/16)
+    else if(max_hz >= APB_Clock_Half/16)
     {
         SPI_BaudRatePrescaler = SPI_BaudRatePrescaler_16;
     }
-    else if(max_hz >= SystemCoreClock/32)
+    else if(max_hz >= APB_Clock_Half/32)
     {
         SPI_BaudRatePrescaler = SPI_BaudRatePrescaler_32;
     }
-    else if(max_hz >= SystemCoreClock/64)
+    else if(max_hz >= APB_Clock_Half/64)
     {
         SPI_BaudRatePrescaler = SPI_BaudRatePrescaler_64;
     }
-    else if(max_hz >= SystemCoreClock/128)
+    else if(max_hz >= APB_Clock_Half/128)
     {
         SPI_BaudRatePrescaler = SPI_BaudRatePrescaler_128;
     }
@@ -374,7 +385,7 @@ static rt_err_t configure(struct rt_spi_device* device, struct rt_spi_configurat
         return RT_EIO;
     }
     /* baudrate */
-    SPI_InitStructure.SPI_BaudRatePrescaler = get_spi_BaudRatePrescaler(configuration->max_hz);
+    SPI_InitStructure.SPI_BaudRatePrescaler = get_spi_BaudRatePrescaler(stm32_spi_bus->SPI, configuration->max_hz);
     /* CPOL */
     if(configuration->mode & RT_SPI_CPOL)
     {
