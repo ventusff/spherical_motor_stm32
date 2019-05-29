@@ -5,7 +5,7 @@
 
 static rt_serial_t *serial;
 static rt_uint8_t buffer[] = {0xAA, 0x55, 0x09, 0x02, 0x03, 0x00, 0x00, 0x00, 0xF7};
-static rt_int32_t __delay_tick = DELAY_MS(100);
+static rt_int32_t __delay_tick = 1000;
 
 static rt_timer_t pTimer;
 static struct rt_semaphore* pRes;
@@ -17,6 +17,8 @@ static void timeout_ind(void* parameter)
 
 int example_usart_system_init(void)
 {
+    __delay_tick = rt_tick_from_millisecond(100);
+
     serial = (rt_serial_t *)rt_device_find("uart2");
     serial->config.baud_rate = 115200;
     serial->config.stop_bits = STOP_BITS_1;
@@ -65,7 +67,7 @@ void set_send_freq(int argc, char **argv)
         }
         else
         {
-            __delay_tick = DELAY_MS(1000.0/data);
+            __delay_tick = rt_tick_from_millisecond(1000.0/data);
             rt_kprintf("Setting frequency to %.1f .\n", 1000.0 / FROM_TICK_TO_MS(__delay_tick));
             rt_timer_control(pTimer, RT_TIMER_CTRL_SET_TIME, &__delay_tick);
             rt_timer_start(pTimer);

@@ -211,6 +211,9 @@ void A9800xInitPowerUp(uint8_t chip)
  */
 void A9800xLoadSrom(uint8_t chip)
 {
+    rt_kprintf("Size of SROM: %d.\n",sizeof(c_auA9800SromData));
+    rt_kprintf("Uploading ADNS9800 firmware...\n");
+
     struct rt_spi_device* pmouse;
     if(chip == ADNS9800_CHIP1)
     {
@@ -246,8 +249,6 @@ void A9800xLoadSrom(uint8_t chip)
     rt_thread_mdelay(10);   //?delay 10ms. on user manual of A9800, it's 15us
 
     /* write the whole SROM data byte by byte */
-    rt_kprintf("Size of SROM: %d.\n",sizeof(c_auA9800SromData));
-    rt_kprintf("Uploading ADNS9800 firmware...\n");
     msg.cs_take = 0;
     msg.cs_release = 0;
     msg.length = 1;
@@ -258,9 +259,8 @@ void A9800xLoadSrom(uint8_t chip)
         rt_spi_transfer_message(pmouse, &msg);
         rt_thread_delay(2); //?delay 100us. on user manual of A9800, it's 15us
     }
-    rt_kprintf("ADNS9800 firmware upload done.\n");
-
     rt_spi_release(pmouse);
+    rt_kprintf("ADNS9800 firmware upload done.\n");
 }
 
 /**
@@ -273,13 +273,13 @@ OP A9800xCheckSrom(uint8_t chip)
 {
     uint8_t auBuf[10];
 
-    rt_thread_delay(10);    //delay 200us
+    rt_thread_delay(10);    // should be delay 200us
 
     auBuf[0] = A9800xReadReg(A9800_SROM_ID_ADDR, chip);                    // Check SROM version
-    rt_thread_delay(1); // delay 10us
+    rt_thread_delay(2); // 40us. should be delay 10us
 
     auBuf[1] = A9800xReadReg(A9800_MOTION_ADDR, chip);                     // Check Fault
-    rt_thread_delay(1); // delay 10us
+    rt_thread_delay(2); // 40us. should be delay 10us
     if ((auBuf[1] & A9800_MOTION_FAULT) == A9800_MOTION_FAULT)
     {
 		rt_kprintf("FAULT\n");
@@ -290,9 +290,9 @@ OP A9800xCheckSrom(uint8_t chip)
     rt_thread_mdelay(50);   //delay 50ms
 
     auBuf[2] = A9800xReadReg(A9800_DATA_OUT_LOWER_ADDR, chip);
-    rt_thread_delay(1); // 20us. should be delay 10us
+    rt_thread_delay(2); // 40us. should be delay 10us
     auBuf[3] = A9800xReadReg(A9800_DATA_OUT_UPPER_ADDR, chip);
-    rt_thread_delay(1); // 20us. should be delay 10us
+    rt_thread_delay(2); // 40us. should be delay 10us
     if ((auBuf[2] != 0xEF) || (auBuf[3] != 0xBE))
     {
 		rt_kprintf("DATA_OUT_LOWER/UPPER_ADDR\n");
@@ -300,7 +300,7 @@ OP A9800xCheckSrom(uint8_t chip)
     }
 
     A9800xWriteReg(A9800_OBSERVATION_ADDR, 0x00, chip);                    // Clear Observation Register
-    rt_thread_delay(1); // 20us. should be delay 1us
+    rt_thread_delay(2); // 40us. should be delay 1us
     auBuf[4] = A9800xReadReg(A9800_OBSERVATION_ADDR, chip);                // Check if SROM is running
     if ((auBuf[4] & 0x40) == 0)
     {
@@ -359,7 +359,7 @@ void A9800xdispRegisters(uint8_t chip){
     "Product_ID","Inverse_Product_ID","SROM_Version","Motion"  };
     uint8_t regres;
     uint8_t rctr=0;
-    rt_kprintf("-----------ANDS9800 - %d Info----------\n",chip + 1);
+    rt_kprintf("ANDS9800 - %d Info\n",chip + 1);
     for(rctr=0; rctr<4; rctr++){
         regres = A9800xReadReg(oreg[rctr], chip);
         rt_kprintf("%s:%x\n",oregname[rctr],regres);
@@ -373,6 +373,7 @@ void A9800xdispRegisters(uint8_t chip){
  */
 void A9800xInit(uint8_t chip)
 {
+    rt_kprintf("----------- ADNS9800 - %d Initialization -----------\n", chip + 1);
     uint8_t auBuf[10];
 
     A9800xInitCheckId(chip);
@@ -406,8 +407,8 @@ void A9800xInit(uint8_t chip)
 void A9800xGetDeltaXY(uint8_t chip, int16_t* delta_ix, int16_t* delta_iy)
 {
     uint8_t           auBuf[6];
-    int16_t          iMoveX;
-    int16_t          iMoveY;
+    // int16_t          iMoveX;
+    // int16_t          iMoveY;
     
     A9800xBurstReadMoveReg(auBuf, 6, chip);
 
@@ -420,13 +421,24 @@ void A9800xGetDeltaXY(uint8_t chip, int16_t* delta_ix, int16_t* delta_iy)
     *delta_iy |= auBuf[4];
 }
 
+static const struct rt_spi_configuration A9800_config = 
+{
+    RT_SPI_CPOL | RT_SPI_CPHA | RT_SPI_MSB,
+    8,
+    0,
+    2000000,
+};
+
 int mouse_sensor_init(void)
 {
-    rt_kprintf("Initializing mouse sensors...\n");
-    pmouse1 = rt_device_find("mouse1");
-    pmouse2 = rt_device_find("mouse2");
+    rt_kprintf("\nInitializing mouse sensors...\n");
+    pmouse1 = (struct rt_spi_device *)rt_device_find("mouse1");
+    pmouse2 = (struct rt_spi_device *)rt_device_find("mouse2");
+    pmouse1->config = A9800_config;
+    pmouse2->config = A9800_config;
     A9800xInit(ADNS9800_CHIP1);
     A9800xInit(ADNS9800_CHIP2);
+    return 0;
 }
 INIT_APP_EXPORT(mouse_sensor_init)
 

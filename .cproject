@@ -22,7 +22,7 @@
 							<option id="fr.ac6.managedbuild.option.gnu.cross.floatabi.1522116658" name="Floating-point ABI" superClass="fr.ac6.managedbuild.option.gnu.cross.floatabi" useByScannerDiscovery="false" value="fr.ac6.managedbuild.option.gnu.cross.floatabi.hard" valueType="enumerated"/>
 							<option id="fr.ac6.managedbuild.option.gnu.cross.board.1411328749" name="Board" superClass="fr.ac6.managedbuild.option.gnu.cross.board" useByScannerDiscovery="false" value="f407zgt6" valueType="string"/>
 							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="fr.ac6.managedbuild.targetPlatform.gnu.cross.973007049" isAbstract="false" osList="all" superClass="fr.ac6.managedbuild.targetPlatform.gnu.cross"/>
-							<builder buildPath="${workspace_loc:/rtt3.1_sw4stm32_empty}/Debug" id="fr.ac6.managedbuild.builder.gnu.cross.1573883741" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="Gnu Make Builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="fr.ac6.managedbuild.builder.gnu.cross"/>
+							<builder buildPath="${workspace_loc:/spherical_motor_stm32}/Debug" id="fr.ac6.managedbuild.builder.gnu.cross.1573883741" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="Gnu Make Builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="fr.ac6.managedbuild.builder.gnu.cross"/>
 							<tool id="fr.ac6.managedbuild.tool.gnu.cross.c.compiler.685598047" name="MCU GCC Compiler" superClass="fr.ac6.managedbuild.tool.gnu.cross.c.compiler">
 								<option id="fr.ac6.managedbuild.gnu.c.compiler.option.optimization.level.810044258" name="Optimization Level" superClass="fr.ac6.managedbuild.gnu.c.compiler.option.optimization.level" useByScannerDiscovery="false"/>
 								<option id="gnu.c.compiler.option.debugging.level.180595222" name="Debug Level" superClass="gnu.c.compiler.option.debugging.level" useByScannerDiscovery="false" value="gnu.c.debugging.level.max" valueType="enumerated"/>
@@ -54,6 +54,7 @@
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/rt-thread-3.1.x/components/utilities/ulog&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/rt-thread-3.1.x/components/drivers/include/drivers&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/rt-thread-3.1.x/include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/spherical_motor/inc/&quot;"/>
 								</option>
 								<option id="fr.ac6.managedbuid.gnu.c.compiler.option.misc.other.1236191141" name="Other flags" superClass="fr.ac6.managedbuid.gnu.c.compiler.option.misc.other" useByScannerDiscovery="false" value="-fmessage-length=0 -Wa,-mimplicit-it=thumb" valueType="string"/>
 								<option id="gnu.c.compiler.option.dialect.std.30277558" name="Language standard" superClass="gnu.c.compiler.option.dialect.std" useByScannerDiscovery="true" value="gnu.c.compiler.dialect.default" valueType="enumerated"/>
@@ -87,6 +88,7 @@
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/rt-thread-3.1.x/components/utilities/ulog&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/rt-thread-3.1.x/components/drivers/include/drivers&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/rt-thread-3.1.x/include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/spherical_motor/inc/&quot;"/>
 								</option>
 								<option id="gnu.both.asm.option.flags.579436223" name="Assembler flags" superClass="gnu.both.asm.option.flags" useByScannerDiscovery="false" value="-mimplicit-it=thumb" valueType="string"/>
 								<inputType id="cdt.managedbuild.tool.gnu.assembler.input.2023141210" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
@@ -101,6 +103,7 @@
 						<entry excluding="components/drivers/spi/spi_wifi_rw009.c|components/drivers/spi/spi_msd.c|components/drivers/spi/spi_flash_w25qxx.c|components/drivers/spi/spi_flash_w25qxx_mtd.c|components/drivers/spi/spi_flash_sst25vfxx.c|components/drivers/spi/spi_flash_sfud.c|components/drivers/spi/spi_flash_gd.c|components/drivers/spi/spi_flash_at45dbxx.c|components/drivers/spi/qspi_core.c|components/drivers/spi/enc28j60.c|components/drivers/spi/sfud|components/utilities/logtrace|components/cplusplus|components/dfs|components/drivers/audio|components/drivers/misc/rt_drv_pwm.c|components/drivers/sdio|components/drivers/sensors|components/drivers/usb|components/drivers/watchdog|components/drivers/i2c|components/drivers/mtd|components/drivers/wlan|components/drivers/pm|components/drivers/misc/adc.c|components/libc|libcpu|components/utilities/zmodem|components/utilities/ymodem|components/utilities/utest|components/vmm|components/vbus|components/net|components/CMSIS" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="rt-thread-3.1.x"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="rt-thread-3.1.x/components/libc/time"/>
 						<entry excluding="context_rvds.S|context_iar.S" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="rt-thread-3.1.x/libcpu/arm/cortex-m4"/>
+						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="spherical_motor"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="startup"/>
 					</sourceEntries>
 				</configuration>
@@ -128,7 +131,7 @@
 							<option id="fr.ac6.managedbuild.option.gnu.cross.floatabi.2105133004" name="Floating-point ABI" superClass="fr.ac6.managedbuild.option.gnu.cross.floatabi" value="fr.ac6.managedbuild.option.gnu.cross.floatabi.hard" valueType="enumerated"/>
 							<option id="fr.ac6.managedbuild.option.gnu.cross.board.534225321" name="Board" superClass="fr.ac6.managedbuild.option.gnu.cross.board" value="f407zgt6" valueType="string"/>
 							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="fr.ac6.managedbuild.targetPlatform.gnu.cross.755599920" isAbstract="false" osList="all" superClass="fr.ac6.managedbuild.targetPlatform.gnu.cross"/>
-							<builder buildPath="${workspace_loc:/rtt3.1_sw4stm32_empty}/Release" id="fr.ac6.managedbuild.builder.gnu.cross.1633030842" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="Gnu Make Builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="fr.ac6.managedbuild.builder.gnu.cross"/>
+							<builder buildPath="${workspace_loc:/spherical_motor_stm32}/Release" id="fr.ac6.managedbuild.builder.gnu.cross.1633030842" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="Gnu Make Builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="fr.ac6.managedbuild.builder.gnu.cross"/>
 							<tool id="fr.ac6.managedbuild.tool.gnu.cross.c.compiler.1009553903" name="MCU GCC Compiler" superClass="fr.ac6.managedbuild.tool.gnu.cross.c.compiler">
 								<option id="fr.ac6.managedbuild.gnu.c.compiler.option.optimization.level.1608142471" name="Optimization Level" superClass="fr.ac6.managedbuild.gnu.c.compiler.option.optimization.level" useByScannerDiscovery="false" value="fr.ac6.managedbuild.gnu.c.optimization.level.most" valueType="enumerated"/>
 								<option id="gnu.c.compiler.option.debugging.level.1166853386" name="Debug Level" superClass="gnu.c.compiler.option.debugging.level" useByScannerDiscovery="false" value="gnu.c.debugging.level.none" valueType="enumerated"/>
@@ -162,6 +165,7 @@
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/rt-thread-3.1.x/components/drivers/include/drivers&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/rt-thread-3.1.x/include&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/rt-thread-3.1.x/include/libc/&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/spherical_motor/inc/&quot;"/>
 								</option>
 								<inputType id="fr.ac6.managedbuild.tool.gnu.cross.c.compiler.input.c.2064881659" superClass="fr.ac6.managedbuild.tool.gnu.cross.c.compiler.input.c"/>
 								<inputType id="fr.ac6.managedbuild.tool.gnu.cross.c.compiler.input.s.2138953734" superClass="fr.ac6.managedbuild.tool.gnu.cross.c.compiler.input.s"/>
@@ -194,6 +198,7 @@
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/rt-thread-3.1.x/components/drivers/include/drivers&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/rt-thread-3.1.x/include&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/rt-thread-3.1.x/include/libc/&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/spherical_motor/inc/&quot;"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.assembler.input.267005898" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
 								<inputType id="fr.ac6.managedbuild.tool.gnu.cross.assembler.input.594373585" superClass="fr.ac6.managedbuild.tool.gnu.cross.assembler.input"/>
@@ -209,6 +214,7 @@
 						<entry excluding="components/drivers/spi/spi_wifi_rw009.c|components/drivers/spi/spi_msd.c|components/drivers/spi/spi_flash_w25qxx.c|components/drivers/spi/spi_flash_w25qxx_mtd.c|components/drivers/spi/spi_flash_sst25vfxx.c|components/drivers/spi/spi_flash_sfud.c|components/drivers/spi/spi_flash_gd.c|components/drivers/spi/spi_flash_at45dbxx.c|components/drivers/spi/qspi_core.c|components/drivers/spi/enc28j60.c|components/drivers/spi/sfud|components/utilities/logtrace|components/cplusplus|components/dfs|components/drivers/audio|components/drivers/misc/rt_drv_pwm.c|components/drivers/sdio|components/drivers/sensors|components/drivers/usb|components/drivers/watchdog|components/drivers/i2c|components/drivers/mtd|components/drivers/wlan|components/drivers/pm|components/drivers/misc/adc.c|components/libc|libcpu|components/utilities/zmodem|components/utilities/ymodem|components/utilities/utest|components/vmm|components/vbus|components/net|components/CMSIS" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="rt-thread-3.1.x"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="rt-thread-3.1.x/components/libc/time"/>
 						<entry excluding="context_rvds.S|context_iar.S" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="rt-thread-3.1.x/libcpu/arm/cortex-m4"/>
+						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="spherical_motor"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="startup"/>
 					</sourceEntries>
 				</configuration>
@@ -217,7 +223,7 @@
 		</cconfiguration>
 	</storageModule>
 	<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-		<project id="rtt3.1_sw4stm32_empty.fr.ac6.managedbuild.target.gnu.cross.exe.1453666803" name="Executable" projectType="fr.ac6.managedbuild.target.gnu.cross.exe"/>
+		<project id="spherical_motor_stm32.fr.ac6.managedbuild.target.gnu.cross.exe.1453666803" name="Executable" projectType="fr.ac6.managedbuild.target.gnu.cross.exe"/>
 	</storageModule>
 	<storageModule moduleId="scannerConfiguration">
 		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
@@ -232,10 +238,10 @@
 	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
 	<storageModule moduleId="refreshScope" versionNumber="2">
 		<configuration configurationName="Debug">
-			<resource resourceType="PROJECT" workspacePath="/rtt3.1_sw4stm32_empty"/>
+			<resource resourceType="PROJECT" workspacePath="/spherical_motor_stm32"/>
 		</configuration>
 		<configuration configurationName="Release">
-			<resource resourceType="PROJECT" workspacePath="/rtt3.1_sw4stm32_empty"/>
+			<resource resourceType="PROJECT" workspacePath="/spherical_motor_stm32"/>
 		</configuration>
 	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
