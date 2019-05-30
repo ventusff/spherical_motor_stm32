@@ -210,12 +210,6 @@ typedef _unit_MAIN_PID_DATA _unit_SUB_PID_DATA;     //次级控制系统与控制系统保持
 
 #define _cst_SUB_PID_TS     5       //Ts = 5e-5
 #define _cst_SUB_PID_OUTPUT_MAX     10.0f
-#define _cst_SUB_PID_OUTPUT_ZERO    32767
-#define _cst_DAC_1_BIT_TO_V        0.0003051758f    //20V/65536
-#define _cst_DAC_1_V_TO_BIT        3276.8f          //65536/20V
-#define _cst_ADC_1_BIT_TO_V        0.0001525879f    //10V/65536
-#define _cst_ADC_1_V_TO_BIT        6553.6f          //65536/10V
-
 
 //**************************** 时序检查部分 **************************************//
 #define _tim_MAIN_CHECK_COUNT       _cfg_MAIN_CLOCK

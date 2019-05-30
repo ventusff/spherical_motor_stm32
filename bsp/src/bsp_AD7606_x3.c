@@ -24,6 +24,41 @@ static void AD7606_FSMCConfig(void);
 #define AD7606_2_READY() (GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_8) == Bit_RESET)
 #define AD7606_3_READY() (GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_9) == Bit_RESET)
 
+/* AD7606 FSMC总线地址，只能读，无需写 */
+	//6			C			4			0			0			0			0			0
+	//0110 	1100 	0100 	0000 	0000 	0000 	0000 	0000
+	//31:28	27:24	23:20	19:16	15:12	11:8	7:4		3:0
+	//A27,A26由FSMC_NE1,FSMC_NE2,FSMC_NE3,FSMC_NE4决定，选4个bank
+	//A25:0是自己定的地址
+
+//球形电机：使用138译码器对3个AD7606进行片选
+//连接关系：
+	//G1常高，G2A,G2B均连接FSMC_NE4(PG12)
+	//A:A23,		B:A24,		C:A25;
+	//Y0:AD7606_CS1,		Y1:AD7606_CS2,		Y2:AD7606_CS3
+//使能表：
+	//000:AD7606_1
+	//001:AD7606_2
+	//010:AD7606_3
+
+//AD7606_1:   00 0000 x -> 00 0000 x
+	//6			C			0			0			0			0			0			0
+	//0110 	1100 	0000 	0000 	0000 	0000 	0000 	0000
+	//31:28	27:24	23:20	19:16	15:12	11:8	7:4		3:0
+#define AD7606_RESULT_1() *(__IO uint16_t *)0x6C000000
+
+//AD7606_2:   01 0000 x -> 00 1000 x
+	//6			D			0			0			0			0			0			0
+	//0110 	1101 	0000 	0000 	0000 	0000 	0000 	0000
+	//31:28	27:24	23:20	19:16	15:12	11:8	7:4		3:0
+#define AD7606_RESULT_2() *(__IO uint16_t *)0x6D000000
+
+//AD7606_3:   10 0000 x -> 01 0000 x
+	//6			E			0			0			0			0			0			0
+	//0110 	1110 	0000 	0000 	0000 	0000 	0000 	0000
+	//31:28	27:24	23:20	19:16	15:12	11:8	7:4		3:0
+#define AD7606_RESULT_3() *(__IO uint16_t *)0x6E000000
+
 /* if use soft oversample */
 #ifdef AD7606_USE_BOARD_OVERSAMPLE
 /* 设置过采样的GPIO: PH9 PH10 PH11 */
@@ -251,6 +286,16 @@ static void AD7606_FSMCConfig(void)
 	FSMC_NORSRAMCmd(FSMC_Bank1_NORSRAM4, ENABLE);
 }
 
+//将ADC整型值转为浮点型值
+static float _mth_ADC_UINT_To_FLOAT(int16_t x)
+{
+	#ifndef AD7606_USE_BOARD_RANGE_SEL
+    return x * _cst_ADC_1_BIT_TO_V;
+	#else
+	#error "todo"
+	#endif
+}
+
 /**
  * @brief Hardware reset AD7606. After reseting, AD7606 will restore normal work state.
  * 
@@ -316,8 +361,9 @@ void AD7606x_StartConvst(uint8_t ADC_port)
 	}
 }
 
-void AD7606x_ReadNowAdc(uint8_t ADC_port, int16_t *rcvBuf, uint8_t num)
+void AD7606x_ReadNowAdc_RawArray(uint8_t ADC_port, int16_t *rcvBuf, uint8_t num)
 {
+	//todo check the validity of num
 	uint8_t idx = 0;
 	switch (ADC_port)
 	{
@@ -348,6 +394,17 @@ void AD7606x_ReadNowAdc(uint8_t ADC_port, int16_t *rcvBuf, uint8_t num)
 	}
 }
 
+void AD7606x_ReadNowAdc_VoltageArray(uint8_t ADC_port, float *rcvBuf, uint8_t num)
+{
+	//todo check the validity of num
+	int16_t data[AD7606_CHANNEL_MAX];
+	AD7606x_ReadNowAdc_RawArray(ADC_port, data, num);
+	for(uint8_t i = 0; i < num; i++)
+	{
+		rcvBuf[i] = _mth_ADC_UINT_To_FLOAT(data[i]);
+	}
+}
+
 uint8_t AD7606x_IsReady(uint8_t ADC_port)
 {
 	switch (ADC_port)
@@ -372,7 +429,7 @@ uint8_t AD7606x_IsReady(uint8_t ADC_port)
 	}
 }
 
-void AD7606_x3_init(void)
+void AD7606_x3_hw_init(void)
 {
 	AD7606_CtrlGPIOConfig();
 	AD7606_FSMCConfig();
