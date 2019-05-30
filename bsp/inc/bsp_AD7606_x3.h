@@ -15,8 +15,8 @@ typedef enum
 #ifdef AD7606_USE_BOARD_RANGE_SEL
 void AD7606_SetInputRange(uint8_t _ucRange);
 #else
-#define _cst_ADC_1_BIT_TO_V        0.0001525879f    //10V/65536
-#define _cst_ADC_1_V_TO_BIT        6553.6f          //65536/10V
+#define __CST_ADC_1_BIT_TO_V        (0.0001525879f)    //10V/65536
+#define __CST_ADC_1_V_TO_BIT        6553.6f          //65536/10V
 #endif
 
 void AD7606_x3_Reset(void);

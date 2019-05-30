@@ -6,51 +6,51 @@
 
 
 //调试模式开关（请保持开）
-#define _cfg_DEBUG_MODE     0
+#define __CFG_DEBUG_MODE     0
 
 //是否为测试功放模式（测试功放时为1，控制PID时为0）
-#define _cfg_TEST_AMPLIFIER 0
+#define __CFG_TEST_AMPLIFIER 0
 
 //是否为测试解耦计算模式（仅测试解耦计算不真实输出则设为1，否则设为0）
-#define _cfg_TEST_DECOUPLE  0
+#define __CFG_TEST_DECOUPLE  0
 
 //是否为测试姿态测量模式（是则设为1）
-#define _cfg_TEST_ORIENTATION   0
+#define __CFG_TEST_ORIENTATION   0
 
 
 
 
 //结构定义
 typedef enum{
-    _ctl_STATUS_RUNNING = 0,
-    _ctl_STATUS_STOP = 1
+    __CTL_STATUS_RUNNING = 0,
+    __CTL_STATUS_STOP = 1
 } SYSTEM_STATUS;
 typedef enum{
-    _ctl_MODE_ANGULAR_VELOCITY = 0,
-    _ctl_MODE_ANGULAR_POSITION = 1,
-    _ctl_MODE_TORQUE_STATOR_OUTPUT = 2,
-    _ctl_MODE_TORQUE_ROTOR_OUTPUT = 3
+    __CTL_MODE_ANGULAR_VELOCITY = 0,
+    __CTL_MODE_ANGULAR_POSITION = 1,
+    __CTL_MODE_TORQUE_STATOR_OUTPUT = 2,
+    __CTL_MODE_TORQUE_ROTOR_OUTPUT = 3
 } SYSTEM_MODE;
 typedef struct{
     SYSTEM_STATUS STATUS;
     SYSTEM_MODE MODE;
-} _ctl_SYSTEM_CONTROL;
+} __CTL_SYSTEM_CONTROL;
 //*******************************************************************************//
 //**************************** 下层建筑部分(外设等) **************************************//
 //*******************************************************************************//
 
 //**************************** ADC 部分 **************************************//
 //配置3个ADC中的开启情况
-#define _cfg_USE_ADC_1 1
-#define _cfg_USE_ADC_2 1
-#define _cfg_USE_ADC_3 1
+#define __CFG_USE_ADC_1 1
+#define __CFG_USE_ADC_2 1
+#define __CFG_USE_ADC_3 1
 //配置采样率，也就是系统主时钟
-#define _cst_SAMPLE_RATE_100KHZ     100000
-#define _cst_SAMPLE_RATE_50khz      50000
-#define _cst_SAMPLE_RATE_40KHZ      40000
-#define _cst_SAMPLE_RATE_20KHZ      20000
-#define _cst_SAMPLE_RATE_10KHZ      10000
-#define _cst_SAMPLE_RATE_5KHZ       5000
+#define __CST_SAMPLE_RATE_100KHZ     100000
+#define __CST_SAMPLE_RATE_50khz      50000
+#define __CST_SAMPLE_RATE_40KHZ      40000
+#define __CST_SAMPLE_RATE_20KHZ      20000
+#define __CST_SAMPLE_RATE_10KHZ      10000
+#define __CST_SAMPLE_RATE_5KHZ       5000
 // AD7606*8(*3) 最多用时：4+2+2+2 = 10us    DAC8563*2*4写入用时 20us 
 
 
@@ -67,39 +67,39 @@ typedef struct{
  *          一个ADNS9800的CS 低电平持续 500~600us，故预计一个Secondary Task大致 1.2ms
  * 
  * */
-#define _cfg_MAIN_CLOCK            _cst_SAMPLE_RATE_10KHZ
-#define _cfg_SECONDARY_CLOCK			 200
-#define _cfg_PUT_MAIN_IN_SECONDARY	1
+#define __CFG_MAIN_CLOCK            __CST_SAMPLE_RATE_10KHZ
+#define __CFG_SECONDARY_CLOCK			 200
+#define __CFG_PUT_MAIN_IN_SECONDARY	1
 
 
 //从主时钟到次时钟的分频系数.
-#define _cst_MAIN_DIVIDE_TO_SECONDARY       (_cfg_MAIN_CLOCK/_cfg_SECONDARY_CLOCK)
+#define __CST_MAIN_DIVIDE_TO_SECONDARY       (__CFG_MAIN_CLOCK/__CFG_SECONDARY_CLOCK)
 //从主时钟想要读取到AD7606_2,AD7606_3的最少需要的周期数(第n个周期时可以读取到读数)
-#define _cst_MINIMUM_CLOCK_CYCLE_2_3        (_cfg_MAIN_CLOCK/_cfg_SECONDARY_CLOCK/2)
+#define __CST_MINIMUM_CLOCK_CYCLE_2_3        (__CFG_MAIN_CLOCK/__CFG_SECONDARY_CLOCK/2)
 
 
 //***************************** DAC 部分 ********************************************//
 //******************* 各线圈组 对应的DAC模块 端口及CS端引脚 ***************************//
 //采用数据总线的形式；只有片选端不同，其他均公用
-#define _cfg_DAC_CHANNEL_NUM    8
+#define __CFG_DAC_CHANNEL_NUM    8
 
 //******************* Grouping Method 线圈分组方式 ***************************//
 //只有已经实现8路DAC，且目前需要只实现3自由度旋转时，需要考虑将8路组合为4路
 //具体16组线圈如何组合为8路，只有硬件中才能体现->这里应该在设计的电路中体现出来
 
-#define _cfg_COIL_NUM   16
-#define _cfg_DAC_GROUP_NUM	4
-extern const uint8_t _DAC_GROUP_X_NUM[_cfg_DAC_GROUP_NUM];
-extern const uint8_t _cfg_Group_of_DAC[_cfg_DAC_GROUP_NUM][2];
-extern const uint8_t _cfg_DAC_number_To_coil_number[_cfg_DAC_CHANNEL_NUM][2];
-extern const int8_t _cfg_Directions[_cfg_DAC_CHANNEL_NUM][2];
-extern const uint8_t _cfg_ENABLE_DAC[_cfg_DAC_CHANNEL_NUM];
+#define __CFG_COIL_NUM   16
+#define __CFG_DAC_GROUP_NUM	4
+extern const uint8_t _DAC_GROUP_X_NUM[__CFG_DAC_GROUP_NUM];
+extern const uint8_t __CFG_Group_of_DAC[__CFG_DAC_GROUP_NUM][2];
+extern const uint8_t __CFG_DAC_number_To_coil_number[__CFG_DAC_CHANNEL_NUM][2];
+extern const int8_t __CFG_Directions[__CFG_DAC_CHANNEL_NUM][2];
+extern const uint8_t __CFG_ENABLE_DAC[__CFG_DAC_CHANNEL_NUM];
 
 //**************************** ADNS9800 部分 **************************************//
 //CPI
-#define _cfg_ADNS9800_CPI	6350
+#define __CFG_ADNS9800_CPI	6350
 //Lift Threshold
-#define _cfg_ADNS9800_LIFT	16
+#define __CFG_ADNS9800_LIFT	16
 
 //*******************************************************************************//
 //**************************** 控制系统部分 **************************************//
@@ -113,23 +113,23 @@ extern const uint8_t _cfg_ENABLE_DAC[_cfg_DAC_CHANNEL_NUM];
  * 故采用 float32_t
  * */
 
-typedef float32_t _unit_MAIN_PID_DATA;
-typedef _unit_MAIN_PID_DATA _unit_CURRENT_FLOAT_DATA;   //虚电流、实电流均保持与MAIN PID一致的运算精度
-#define _cfg_LEVITATION_ON   0       //悬浮控制开关。实际上决定 SISO PID个数 = 虚电流维度 = 解算实电流的输入维度
-#if _cfg_LEVITATION_ON
-    #define _cfg_MAIN_PID_CHANNEL_NUM   6
+typedef float32_t __UNIT_MAIN_PID_DATA;
+typedef __UNIT_MAIN_PID_DATA __UNIT_CURRENT_FLOAT_DATA;   //虚电流、实电流均保持与MAIN PID一致的运算精度
+#define __CFG_LEVITATION_ON   0       //悬浮控制开关。实际上决定 SISO PID个数 = 虚电流维度 = 解算实电流的输入维度
+#if __CFG_LEVITATION_ON
+    #define __CFG_MAIN_PID_CHANNEL_NUM   6
 #else
-    #define _cfg_MAIN_PID_CHANNEL_NUM   3       //注意要与_cfg_COIL_GROUP_NUM 紧密配合
+    #define __CFG_MAIN_PID_CHANNEL_NUM   3       //注意要与__CFG_COIL_GROUP_NUM 紧密配合
 #endif
 
 //增广矩阵的行数、列数
-#define _cfg_DECOUPLE_EQUATION_ROWS _cfg_MAIN_PID_CHANNEL_NUM
-#define _cfg_DECOUPLE_EQUATION_COLUMNS (_cfg_DAC_GROUP_NUM + 1)
+#define __CFG_DECOUPLE_EQUATION_ROWS __CFG_MAIN_PID_CHANNEL_NUM
+#define __CFG_DECOUPLE_EQUATION_COLUMNS (__CFG_DAC_GROUP_NUM + 1)
 
 //旋转控制：
-#define _cfg_THRESHOLD     0.2f
-#define _cfg_2_THRESHOLD     0.4f
-#define _cfg_REACH_THRESHOLD    0.04f
+#define __CFG_THRESHOLD     0.2f
+#define __CFG_2_THRESHOLD     0.4f
+#define __CFG_REACH_THRESHOLD    0.04f
 
 //*************** 运算部分：三旋转角的解算 ****************//
 /**运算规约
@@ -137,40 +137,40 @@ typedef _unit_MAIN_PID_DATA _unit_CURRENT_FLOAT_DATA;   //虚电流、实电流均保持与
  * 2.角度型量，单位rad
  * 3.运算时间估计：用<math.h>的算法，sin(3.141592)用了60微秒，sin(3.141592/2)用了40微秒。
  */
-typedef int16_t _unit_MouseSensorINTData;
-typedef float32_t _unit_MouseSensorFLOATData;
-typedef float32_t _unit_RotateAngleData;
-#define _cst_PI             3.141593f
-#define _cst_2PI             6.283185f
-#define _cst_ROTOR_RADIUS           30.0f
-#define _cst_ROTOR_RADIUS_RECIPROCAL    0.03333333f
-#define _cst_MOUSE_SENSOR_THETA     0.9424778f   //54degree*pi/180
-#define _cst_ROTOR_RADIUS_X_MOUSE_SIN_THETA     24.27051f    //30.0*sin(54*pi/180)
-#define _cst_ROTOR_RADIUS_X_MOUSE_SIN_THETA_RECIPROCAL  0.04120227f
-#define _cst_COS_MOUSE_SENSOR_THETA             0.5877853f   //cos(54*pi/180)
-#define _cst_MOUSE_SENSOR_SCALE_FACTOR_Y        1.030614f   //1/cos((50-(90-54))*pi/180)
-#define _cst_RAD_TO_ANGLE           57.29578f                //180/pi
-#define _mth_RAD_TO_ANGLE(x)        (x*_cst_RAD_TO_ANGLE)
+typedef int16_t __UNIT_MouseSensorINTData;
+typedef float32_t __UNIT_MouseSensorFLOATData;
+typedef float32_t __UNIT_RotateAngleData;
+#define __CST_PI             3.141593f
+#define __CST_2PI             6.283185f
+#define __CST_ROTOR_RADIUS           30.0f
+#define __CST_ROTOR_RADIUS_RECIPROCAL    0.03333333f
+#define __CST_MOUSE_SENSOR_THETA     0.9424778f   //54degree*pi/180
+#define __CST_ROTOR_RADIUS_X_MOUSE_SIN_THETA     24.27051f    //30.0*sin(54*pi/180)
+#define __CST_ROTOR_RADIUS_X_MOUSE_SIN_THETA_RECIPROCAL  0.04120227f
+#define __CST_COS_MOUSE_SENSOR_THETA             0.5877853f   //cos(54*pi/180)
+#define __CST_MOUSE_SENSOR_SCALE_FACTOR_Y        1.030614f   //1/cos((50-(90-54))*pi/180)
+#define __CST_RAD_TO_ANGLE           57.29578f                //180/pi
+#define _mth_RAD_TO_ANGLE(x)        (x*__CST_RAD_TO_ANGLE)
 #define _mth_abs(x)                 (x>0?x:0.0f - x)
 #define _mth_sign(x)                (x>0?1:-1)
 //*************** 运算部分：线圈在动子坐标系下位置的计算 ****************//
-#define _cst_DELTA_ANGLE_EPSILONE_DEGREE    80              //500Hz下，假定一个周期最多运动度数  
-#define _cst_COIL_COOR_RADIUS               0.037f           //球坐标下，37mm
-extern const _unit_MAIN_PID_DATA _cst_COIL_POSITION[3*_cfg_COIL_NUM];
-#define _cfg_DEBOUPLE_USE_FORMULA        0   //在解算4元一次方程组时，是否利用公式计算. (或利用计算方法)
+#define __CST_DELTA_ANGLE_EPSILONE_DEGREE    80              //500Hz下，假定一个周期最多运动度数  
+#define __CST_COIL_COOR_RADIUS               0.037f           //球坐标下，37mm
+extern const __UNIT_MAIN_PID_DATA __CST_COIL_POSITION[3*__CFG_COIL_NUM];
+#define __CFG_DEBOUPLE_USE_FORMULA        0   //在解算4元一次方程组时，是否利用公式计算. (或利用计算方法)
 
 //**************************** 次级控制系统 **************************************//
-typedef _unit_MAIN_PID_DATA _unit_SUB_PID_DATA;     //次级控制系统与控制系统保持一致的运算精度
+typedef __UNIT_MAIN_PID_DATA __UNIT_SUB_PID_DATA;     //次级控制系统与控制系统保持一致的运算精度
 
 
-#define _cfg_USE_SUB_PID        1   //标识是否子控制系统是否使用PID（开环/PID闭环开关）
-#define _cfg_USE_PRESET_PID     1   //是否使用预设的PID参数（或还是通过手动串口输入PID参数）
+#define __CFG_USE_SUB_PID        1   //标识是否子控制系统是否使用PID（开环/PID闭环开关）
+#define __CFG_USE_PRESET_PID     1   //是否使用预设的PID参数（或还是通过手动串口输入PID参数）
 
-#define _cfg_USE_PRESET_PID_MAIN  0
+#define __CFG_USE_PRESET_PID_MAIN  0
 
 //****** 开环 ******//
-#define _cst_COIL_R         6.0f     //开环下，线圈电阻估测
-#define _cst_CURRENT_MULT   2.0f     //开换下，放大倍数估测
+#define __CST_COIL_R         6.0f     //开环下，线圈电阻估测
+#define __CST_CURRENT_MULT   2.0f     //开换下，放大倍数估测
 
 //****** 闭环 ******//
 //PID调节记录
@@ -197,32 +197,32 @@ typedef _unit_MAIN_PID_DATA _unit_SUB_PID_DATA;     //次级控制系统与控制系统保持
  * */
 
 //Ki = 0.2时有多次震荡
-#define _par_SUB_PID_KP     1.3f
-#define _par_SUB_PID_KI     0.8f    //Ki = xe5 (因为Ts = 5e-5,故抵消)
-#define _par_SUB_PID_KD     0.4f
+#define __PAR_SUB_PID_KP     1.3f
+#define __PAR_SUB_PID_KI     0.8f    //Ki = xe5 (因为Ts = 5e-5,故抵消)
+#define __PAR_SUB_PID_KD     0.4f
 
-//#define _par_SUB_PID_KI     0.06    //Ki = xe5 (因为Ts = 5e-5,故抵消)
-//#define _par_SUB_PID_KP     10
+//#define __PAR_SUB_PID_KI     0.06    //Ki = xe5 (因为Ts = 5e-5,故抵消)
+//#define __PAR_SUB_PID_KP     10
 
-#define _cfg_SUB_PID_CHANNEL_NUM _cfg_DAC_CHANNEL_NUM
-#define _cfg_SUB_PID_COIL_CURRENT_MAGNITUDE     1.5f         //线圈电流幅度。
-#define _cfg_SUB_PID_OUTPUT_VOLTATE_MAGNITUDE   7.5f         //放大前输出电压的赋值
+#define __CFG_SUB_PID_CHANNEL_NUM __CFG_DAC_CHANNEL_NUM
+#define __CFG_SUB_PID_COIL_CURRENT_MAGNITUDE     1.5f         //线圈电流幅度。
+#define __CFG_SUB_PID_OUTPUT_VOLTATE_MAGNITUDE   7.5f         //放大前输出电压的赋值
 
-#define _cst_SUB_PID_TS     5       //Ts = 5e-5
-#define _cst_SUB_PID_OUTPUT_MAX     10.0f
+#define __CST_SUB_PID_TS     5       //Ts = 5e-5
+#define __CST_SUB_PID_OUTPUT_MAX     10.0f
 
 //**************************** 时序检查部分 **************************************//
-#define _tim_MAIN_CHECK_COUNT       _cfg_MAIN_CLOCK
-#define _tim_SECONDARY_CHECK_COUNT  _cfg_SECONDARY_CLOCK
-#define _tim_SECONDARY_TO_DEBUG     _cfg_SECONDARY_CLOCK/2
+#define __TIME_MAIN_CHECK_COUNT       __CFG_MAIN_CLOCK
+#define __TIME_SECONDARY_CHECK_COUNT  __CFG_SECONDARY_CLOCK
+#define __TIME_SECONDARY_TO_DEBUG     __CFG_SECONDARY_CLOCK/2
 
 //**************************** 串口通信部分 **************************************//
-#define _cfg_USART_BUFFER_MAX  1024
-#define _cfg_USART_RECEIVE_END_FLAG '\r'
-#define _cfg_USART_RECEIVE_END_FLAG_2 '\n'
+#define __CFG_USART_BUFFER_MAX  1024
+#define __CFG_USART_RECEIVE_END_FLAG '\r'
+#define __CFG_USART_RECEIVE_END_FLAG_2 '\n'
 
 //**************************** 归零装置部分 **************************************//
-#define _cfg_USE_ZERO_DEVICE  1
+#define __CFG_USE_ZERO_DEVICE  1
 #endif
 
 /**** Copyright (C)2018 Ventus Guo. All Rights Reserved **** END OF FILE ****/

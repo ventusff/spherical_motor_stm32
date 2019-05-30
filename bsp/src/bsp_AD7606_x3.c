@@ -1,5 +1,6 @@
-#include "bsp_AD7606_x3.h"
+
 #include <stm32f4xx.h>
+#include "bsp_AD7606_x3.h"
 
 //todo 中断中的内容
 
@@ -290,7 +291,7 @@ static void AD7606_FSMCConfig(void)
 static float _mth_ADC_UINT_To_FLOAT(int16_t x)
 {
 	#ifndef AD7606_USE_BOARD_RANGE_SEL
-    return x * _cst_ADC_1_BIT_TO_V;
+    return x * __CST_ADC_1_BIT_TO_V;
 	#else
 	#error "todo"
 	#endif
