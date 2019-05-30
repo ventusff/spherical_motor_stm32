@@ -3,18 +3,18 @@
         {
             "name": "Linux",
             "includePath": [
-                "${workspaceFolder}\\",
-                "${workspaceFolder}\\rt-thread-3.1.x\\include\\",
-                "${workspaceFolder}\\rt-thread-3.1.x\\components\\finsh",
-                "${workspaceFolder}\\rt-thread-3.1.x\\components\\drivers\\include",
-                "${workspaceFolder}\\StdPeriph_Driver\\inc\\",
-                "${workspaceFolder}\\app\\inc\\",
-                "${workspaceFolder}\\bsp\\inc\\",
-                "${workspaceFolder}\\CMSIS\\device\\",
-                "${workspaceFolder}\\CMSIS\\core\\",
-                "${workspaceFolder}\\rt-thread-3.1.x\\components\\utilities\\logtrace",
-                "${workspaceFolder}\\rt-thread-3.1.x\\components\\utilities\\ulog",
-                "${workspaceFolder}\\spherical_motor\\inc"
+                "${workspaceFolder}/",
+                "${workspaceFolder}/rt-thread-3.1.x/include/",
+                "${workspaceFolder}/rt-thread-3.1.x/components/finsh",
+                "${workspaceFolder}/rt-thread-3.1.x/components/drivers/include",
+                "${workspaceFolder}/StdPeriph_Driver/inc/",
+                "${workspaceFolder}/app/inc/",
+                "${workspaceFolder}/bsp/inc/",
+                "${workspaceFolder}/CMSIS/device/",
+                "${workspaceFolder}/CMSIS/core/",
+                "${workspaceFolder}/rt-thread-3.1.x/components/utilities/logtrace",
+                "${workspaceFolder}/rt-thread-3.1.x/components/utilities/ulog",
+                "${workspaceFolder}/spherical_motor/inc"
 
             ],
             "defines": [
